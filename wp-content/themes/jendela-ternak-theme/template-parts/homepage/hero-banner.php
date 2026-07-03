@@ -63,9 +63,9 @@ if ( empty( $slides ) ) {
     <!-- Slider Wrapper -->
     <div class="relative w-full h-[320px] md:h-[420px] bg-[#0B5E34] overflow-hidden rounded-2xl shadow-sm border border-gray-100">
         <!-- Slides -->
-        <div class="flex transition-transform duration-700 ease-out h-full" :style="{ transform: 'translateX(-' + (activeSlide * 100) + '%)', width: (slidesCount * 100) + '%' }">
+        <div class="flex transition-transform duration-700 ease-out h-full w-full" :style="{ transform: 'translateX(-' + (activeSlide * 100) + '%)' }">
             <?php foreach ( $slides as $slide ) : ?>
-                <div class="w-full flex-shrink-0 h-full relative flex items-center" style="width: <?php echo 100 / count( $slides ); ?>%;">
+                <div class="w-full flex-shrink-0 h-full relative flex items-center">
                     <!-- Background Image or Gradient -->
                     <?php if ( ! empty( $slide['img'] ) ) : ?>
                         <div class="absolute inset-0 z-0 bg-cover bg-center" style="background-image: url('<?php echo esc_url( $slide['img'] ); ?>');"></div>
