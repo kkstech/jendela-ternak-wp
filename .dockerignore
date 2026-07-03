@@ -1,0 +1,36 @@
+# Exclude Git history (sangat besar karena riwayat commit file lama)
+.git
+.github
+
+# Exclude file konfigurasi lokal & server
+.gitignore
+.dockerignore
+Dockerfile
+docker-compose.yml
+docker-compose.*
+wp-config.php
+start.sh
+router.php
+
+# Exclude database dumps & logs
+db_local.sql
+*.sql
+*.log
+wp-content/uploads/wc-logs/*
+
+# Exclude folder uploads, upgrade, dan backups (dikelola oleh Volume Persistent)
+wp-content/uploads
+wp-content/upgrade
+wp-content/backups
+wp-content/uploads/*
+wp-content/upgrade/*
+wp-content/backups/*
+
+# Exclude dokumentasi
+*.md
+LICENSE
+license.txt
+readme.html
+single_product_design.md
+PRD_JendelaTernakMalang_ShopeeStyle_v2.md
+Struktur_file_theme.md

@@ -24,8 +24,7 @@ RUN sed -i 's|AllowOverride None|AllowOverride All|g' /etc/apache2/apache2.conf 
 COPY . /var/www/html/
 
 # Ensure correct file permissions for Apache (www-data)
+# We avoid heavy 'find chmod' commands which duplicate layers and consume huge disk space.
 RUN chown -R www-data:www-data /var/www/html/ \
-    && find /var/www/html -type f -name "*.php" -exec chmod 644 {} \; \
-    && find /var/www/html -type d -exec chmod 755 {} \; \
-    && chmod 644 /var/www/html/.htaccess
+    && if [ -f /var/www/html/.htaccess ]; then chmod 644 /var/www/html/.htaccess; fi
 

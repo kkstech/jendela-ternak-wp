@@ -2,7 +2,5 @@ wp-config.php
 wp-content/uploads/
 wp-content/upgrade/
 wp-content/backups/
+db_local.sql
 *.log
-# .htaccess sengaja TIDAK di-ignore agar ikut ter-deploy ke Docker container.
-# File ini berisi rewrite rules WordPress yang dibutuhkan untuk pretty permalinks.
-# Tanpa file ini, semua URL akan menampilkan /index.php/nama-halaman.
