@@ -5,11 +5,12 @@ RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 
 # Increase upload limits and memory limit (critical for WooCommerce and heavy media uploads)
 RUN { \
-    echo 'upload_max_filesize = 128M'; \
-    echo 'post_max_size = 128M'; \
-    echo 'memory_limit = 512M'; \
-    echo 'max_execution_time = 300'; \
+    echo 'upload_max_filesize = 512M'; \
+    echo 'post_max_size = 512M'; \
+    echo 'memory_limit = 1024M'; \
+    echo 'max_execution_time = 600'; \
 } > /usr/local/etc/php/conf.d/wordpress-custom.ini
+
 
 # Enable Apache mod_rewrite — REQUIRED for WordPress pretty permalinks.
 # Without this, URLs will appear as /index.php/page-name instead of /page-name.
