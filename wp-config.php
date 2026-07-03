@@ -19,17 +19,16 @@
  */
 
 // ** Database settings - You can get this info from your web host ** //
-/** The name of the database for WordPress */
-define( 'DB_NAME', 'jendelaternak_wp' );
+define( 'DB_NAME', $_ENV['DB_NAME'] ?? getenv('DB_NAME') ?: 'jendelaternak_wp' );
 
 /** Database username */
-define( 'DB_USER', 'root' );
+define( 'DB_USER', $_ENV['DB_USER'] ?? getenv('DB_USER') ?: 'root' );
 
 /** Database password */
-define( 'DB_PASSWORD', '' );
+define( 'DB_PASSWORD', $_ENV['DB_PASSWORD'] ?? getenv('DB_PASSWORD') ?: '' );
 
 /** Database hostname */
-define( 'DB_HOST', 'localhost' );
+define( 'DB_HOST', $_ENV['DB_HOST'] ?? getenv('DB_HOST') ?: 'localhost' );
 
 /** Database charset to use in creating database tables. */
 define( 'DB_CHARSET', 'utf8mb4' );
@@ -81,6 +80,11 @@ $table_prefix = 'wp_';
 define( 'WP_DEBUG', true );
 
 /* Add any custom values between this line and the "stop editing" line. */
+
+$http_host = $_SERVER['HTTP_HOST'] ?? 'localhost:8000';
+$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https://' : 'http://';
+define( 'WP_HOME', $_ENV['WP_HOME'] ?? getenv('WP_HOME') ?: $protocol . $http_host );
+define( 'WP_SITEURL', $_ENV['WP_SITEURL'] ?? getenv('WP_SITEURL') ?: $protocol . $http_host );
 
 
 

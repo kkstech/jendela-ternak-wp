@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      DB_HOST: ${DB_HOST:-db:3306}
+      DB_USER: ${DB_USER:-wordpress}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME:-wordpress_db}
+      WP_HOME: ${WP_HOME}
+      WP_SITEURL: ${WP_SITEURL}
+    volumes:
+      # Persistent volume for media uploads, ensuring files are not lost on redeploy
+      - wordpress_uploads:/var/www/html/wp-content/uploads
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_DATABASE: ${DB_NAME:-wordpress_db}
+      MYSQL_USER: ${DB_USER:-wordpress}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+    volumes:
+      # Persistent volume for MySQL database data
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  wordpress_uploads:
+    name: jendelaternak_wordpress_uploads
+  mysql_data:
+    name: jendelaternak_mysql_data
