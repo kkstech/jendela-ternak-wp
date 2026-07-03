@@ -18,6 +18,11 @@
  * @package WordPress
  */
 
+// Detect HTTPS from Reverse Proxy (Coolify/Traefik) to prevent Too Many Redirects loop
+if ( isset( $_SERVER['HTTP_X_FORWARDED_PROTO'] ) && strpos( $_SERVER['HTTP_X_FORWARDED_PROTO'], 'https' ) !== false ) {
+    $_SERVER['HTTPS'] = 'on';
+}
+
 // ** Database settings - You can get this info from your web host ** //
 define( 'DB_NAME', $_ENV['DB_NAME'] ?? getenv('DB_NAME') ?: 'jendelaternak_wp' );
 
