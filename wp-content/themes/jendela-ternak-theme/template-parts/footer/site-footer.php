@@ -19,15 +19,20 @@ $_footer_logo_height = (int) jt_get_setting( 'logo_height', 40 );
 
             <!-- Brand Column -->
             <div class="jt-footer__col">
-                <?php if ( $_footer_logo_url ) : ?>
-                    <div style="margin-bottom:12px;">
-                        <img src="<?php echo $_footer_logo_url; ?>" alt="<?php bloginfo( 'name' ); ?>" style="height:<?php echo $_footer_logo_height; ?>px;width:auto;filter:brightness(0) invert(1);">
+                <a href="<?php echo esc_url( home_url( '/' ) ); ?>" style="display:flex; align-items:center; gap:12px; text-decoration:none; margin-bottom:16px;">
+                    <?php if ( $_footer_logo_url ) : ?>
+                        <img src="<?php echo $_footer_logo_url; ?>" alt="<?php bloginfo( 'name' ); ?>" style="height:<?php echo $_footer_logo_height; ?>px; width:auto; display:block;">
+                    <?php elseif ( has_custom_logo() ) : ?>
+                        <div class="jt-footer__custom-logo">
+                            <?php the_custom_logo(); ?>
+                        </div>
+                    <?php endif; ?>
+                    
+                    <div style="display:flex; flex-direction:column;">
+                        <span style="font-size:18px; font-weight:800; color:#fff; line-height:1.2;"><?php bloginfo( 'name' ); ?></span>
+                        <span style="font-size:10px; color:rgba(255,255,255,0.7);"><?php bloginfo( 'description' ); ?></span>
                     </div>
-                <?php elseif ( has_custom_logo() ) : ?>
-                    <div style="margin-bottom:12px;filter:brightness(0) invert(1);"><?php the_custom_logo(); ?></div>
-                <?php else : ?>
-                    <div style="font-size:20px;font-weight:800;color:#fff;margin-bottom:8px;"><?php bloginfo( 'name' ); ?></div>
-                <?php endif; ?>
+                </a>
                 <p style="font-size:13px;color:rgba(255,255,255,0.7);line-height:1.7;margin-bottom:16px;">
                     <?php esc_html_e( 'Toko lengkap pakan ternak, obat hewan, dan alat peternakan terpercaya di Malang.', 'jendela-ternak' ); ?>
                 </p>

@@ -33,12 +33,12 @@ $_jt_logo_height = (int) jt_get_setting( 'logo_height', 50 );
                         >
                     <?php elseif ( has_custom_logo() ) : ?>
                         <?php the_custom_logo(); ?>
-                    <?php else : ?>
-                        <div>
-                            <div class="jt-site-title"><?php bloginfo( 'name' ); ?></div>
-                            <div class="jt-site-tagline"><?php bloginfo( 'description' ); ?></div>
-                        </div>
                     <?php endif; ?>
+                    
+                    <div class="jt-header__brand-text">
+                        <div class="jt-site-title"><?php bloginfo( 'name' ); ?></div>
+                        <div class="jt-site-tagline"><?php bloginfo( 'description' ); ?></div>
+                    </div>
                 </a>
 
                 <!-- Search Bar -->
