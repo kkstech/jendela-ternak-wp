@@ -10,6 +10,7 @@
 defined( 'ABSPATH' ) || exit;
 ?>
 <table class="shop_table woocommerce-checkout-review-order-table jt-checkout-review-table">
+
     <thead>
         <tr>
             <th class="product-name"><?php esc_html_e( 'Produk', 'jendela-ternak' ); ?></th>

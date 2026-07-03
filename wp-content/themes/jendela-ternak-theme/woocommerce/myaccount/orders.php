@@ -125,17 +125,17 @@ do_action( 'woocommerce_before_account_orders', $has_orders ); ?>
                         
                         <div style="display:flex;gap:8px;">
                             <a href="<?php echo esc_url( $wa_url ); ?>" target="_blank" rel="noopener noreferrer" class="jt-btn jt-btn--ghost" style="padding:6px 12px;font-size:12px;">
-                                💬 CS
+                                <i class="fa-solid fa-comment-dots" style="margin-right: 4px;"></i> CS
                             </a>
 
                             <?php if ( $status === 'pending' ) : ?>
                                 <a href="<?php echo esc_url( $order->get_checkout_payment_url() ); ?>" class="jt-btn jt-btn--accent" style="padding:6px 12px;font-size:12px;">
-                                    💸 Bayar
+                                    <i class="fa-solid fa-wallet" style="margin-right: 4px;"></i> Bayar
                                 </a>
                             <?php endif; ?>
 
                             <a href="<?php echo esc_url( $order->get_view_order_url() ); ?>" class="jt-btn jt-btn--outline" style="padding:6px 12px;font-size:12px;">
-                                🔍 Detail
+                                <i class="fa-solid fa-magnifying-glass" style="margin-right: 4px;"></i> Detail
                             </a>
                         </div>
                     </div>
@@ -149,7 +149,7 @@ do_action( 'woocommerce_before_account_orders', $has_orders ); ?>
 
 <?php else : ?>
     <div class="jt-no-products" style="background:#fff;border-radius:12px;box-shadow:var(--shadow-sm);">
-        <span style="font-size:48px;display:block;margin-bottom:12px;" role="img" aria-label="Inbox">📭</span>
+        <span style="font-size:48px;display:block;margin-bottom:12px;color:var(--color-text-muted);" role="img" aria-label="Inbox"><i class="fa-solid fa-inbox"></i></span>
         <p><?php esc_html_e( 'Anda belum memiliki riwayat pesanan.', 'jendela-ternak' ); ?></p>
         <a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>" class="jt-btn jt-btn--primary" style="margin-top:16px;">
             <?php esc_html_e( 'Mulai Belanja', 'jendela-ternak' ); ?>

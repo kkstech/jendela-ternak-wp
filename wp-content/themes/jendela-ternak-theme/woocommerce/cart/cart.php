@@ -47,7 +47,7 @@ do_action( 'woocommerce_before_cart' ); ?>
                     ?>
                     <tr class="woocommerce-cart-form__cart-item <?php echo esc_attr( apply_filters( 'woocommerce_cart_item_class', 'cart_item', $cart_item, $cart_item_key ) ); ?>">
 
-                        <td>
+                        <td class="product-thumbnail-name" data-title="<?php esc_attr_e( 'Produk', 'jendela-ternak' ); ?>">
                             <div style="display:flex;align-items:center;gap:12px;">
                                 <?php if ( ! $product_permalink ) : ?>
                                     <?php echo $thumbnail; // PHPCS: XSS ok. ?>
@@ -66,11 +66,11 @@ do_action( 'woocommerce_before_cart' ); ?>
                             </div>
                         </td>
 
-                        <td>
+                        <td class="product-price" data-title="<?php esc_attr_e( 'Harga', 'jendela-ternak' ); ?>">
                             <?php echo apply_filters( 'woocommerce_cart_item_price', WC()->cart->get_product_price( $_product ), $cart_item, $cart_item_key ); // PHPCS: XSS ok. ?>
                         </td>
 
-                        <td>
+                        <td class="product-quantity" data-title="<?php esc_attr_e( 'Jumlah', 'jendela-ternak' ); ?>">
                             <?php
                             if ( $_product->is_sold_individually() ) {
                                 $product_quantity = sprintf( '1 <input type="hidden" name="cart[%s][qty]" value="1" />', $cart_item_key );
@@ -91,16 +91,16 @@ do_action( 'woocommerce_before_cart' ); ?>
                             ?>
                         </td>
 
-                        <td style="font-weight:700;color:var(--color-primary);">
+                        <td class="product-subtotal" data-title="<?php esc_attr_e( 'Total', 'jendela-ternak' ); ?>" style="font-weight:700;color:var(--color-primary);">
                             <?php echo apply_filters( 'woocommerce_cart_item_subtotal', WC()->cart->get_product_subtotal( $_product, $cart_item['quantity'] ), $cart_item, $cart_item_key ); // PHPCS: XSS ok. ?>
                         </td>
 
-                        <td>
+                        <td class="product-remove">
                             <?php
                             echo apply_filters( // PHPCS: XSS ok.
                                 'woocommerce_cart_item_remove_link',
                                 sprintf(
-                                    '<a href="%s" class="remove" aria-label="%s" data-product_id="%s" data-product_sku="%s" style="color:var(--color-red);font-size:20px;line-height:1;">&times;</a>',
+                                    '<a href="%s" class="remove" aria-label="%s" data-product_id="%s" data-product_sku="%s" style="color:var(--color-red);font-size:16px;line-height:1;"><i class="fa-regular fa-trash-can"></i></a>',
                                     esc_url( wc_get_cart_remove_url( $cart_item_key ) ),
                                     /* translators: %s is product name */
                                     esc_attr( sprintf( __( 'Remove %s from cart', 'woocommerce' ), wp_strip_all_tags( $_product->get_name() ) ) ),
@@ -120,16 +120,19 @@ do_action( 'woocommerce_before_cart' ); ?>
                         <td colspan="5" style="padding:16px;">
                             <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
                                 <?php if ( wc_coupons_enabled() ) : ?>
-                                <div style="display:flex;gap:8px;flex:1;min-width:200px;">
-                                    <input
-                                        type="text"
-                                        name="coupon_code"
-                                        class="input-text"
-                                        id="coupon_code"
-                                        value=""
-                                        placeholder="<?php esc_attr_e( 'Kode Kupon...', 'jendela-ternak' ); ?>"
-                                        style="border:2px solid var(--color-border);border-radius:8px;padding:10px 12px;font-size:14px;font-family:var(--font-sans);outline:none;flex:1;"
-                                    >
+                                <div style="display:flex;gap:8px;flex:1;min-width:280px;align-items:center;">
+                                    <div style="position:relative;flex:1;display:flex;align-items:center;">
+                                        <i class="fa-solid fa-ticket" style="position:absolute;left:12px;color:var(--color-primary);font-size:16px;opacity:0.65;"></i>
+                                        <input
+                                            type="text"
+                                            name="coupon_code"
+                                            class="input-text"
+                                            id="coupon_code"
+                                            value=""
+                                            placeholder="<?php esc_attr_e( 'Kode Kupon...', 'jendela-ternak' ); ?>"
+                                            style="border:2px solid var(--color-border);border-radius:8px;padding:10px 12px 10px 36px;font-size:14px;font-family:var(--font-sans);outline:none;width:100%;"
+                                        >
+                                    </div>
                                     <button type="submit" class="jt-btn jt-btn--outline" name="apply_coupon" value="<?php esc_attr_e( 'Terapkan', 'jendela-ternak' ); ?>">
                                         <?php esc_html_e( 'Terapkan', 'jendela-ternak' ); ?>
                                     </button>
@@ -164,15 +167,13 @@ do_action( 'woocommerce_before_cart' ); ?>
         <?php // woocommerce_cart_totals is hooked here by WC ?>
 
         <!-- Quick checkout buttons -->
-        <a href="<?php echo esc_url( wc_get_checkout_url() ); ?>" class="jt-btn jt-btn--primary" id="jt-cart-checkout-btn" style="width:100%;text-align:center;margin-top:4px;">
+        <a href="<?php echo esc_url( wc_get_checkout_url() ); ?>" class="jt-btn jt-btn--primary" id="jt-cart-checkout-btn" style="width:100%;text-align:center;margin-top:4px;display:flex;align-items:center;justify-content:center;gap:8px;">
             <?php esc_html_e( 'Lanjut ke Checkout', 'jendela-ternak' ); ?>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-            </svg>
+            <i class="fa-solid fa-arrow-right"></i>
         </a>
 
-        <a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>" class="jt-btn jt-btn--ghost" style="width:100%;text-align:center;">
-            ← <?php esc_html_e( 'Lanjut Belanja', 'jendela-ternak' ); ?>
+        <a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>" class="jt-btn jt-btn--ghost" style="width:100%;text-align:center;display:flex;align-items:center;justify-content:center;gap:8px;">
+            <i class="fa-solid fa-arrow-left"></i> <?php esc_html_e( 'Lanjut Belanja', 'jendela-ternak' ); ?>
         </a>
     </div>
 

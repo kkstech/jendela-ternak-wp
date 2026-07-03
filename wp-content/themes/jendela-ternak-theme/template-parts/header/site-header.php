@@ -72,7 +72,7 @@ $_jt_logo_height = (int) jt_get_setting( 'logo_height', 50 );
                     </a>
 
                     <!-- Wishlist -->
-                    <a href="<?php echo esc_url( home_url( '/wishlist/' ) ); ?>" id="jt-wishlist-icon" class="jt-header__icon-btn" aria-label="<?php esc_attr_e( 'Wishlist', 'jendela-ternak' ); ?>">
+                    <a href="<?php echo esc_url( wc_get_account_endpoint_url( 'wishlist' ) ); ?>" id="jt-wishlist-icon" class="jt-header__icon-btn" aria-label="<?php esc_attr_e( 'Wishlist', 'jendela-ternak' ); ?>">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
                         </svg>
@@ -228,7 +228,7 @@ $_jt_logo_height = (int) jt_get_setting( 'logo_height', 50 );
                     </a>
                 </li>
                 <li>
-                    <a href="<?php echo esc_url( home_url( '/wishlist/' ) ); ?>" class="flex items-center gap-3 text-sm font-bold text-gray-700 hover:text-[#0B5E34] transition-colors py-3 border-b border-gray-100">
+                    <a href="<?php echo esc_url( wc_get_account_endpoint_url( 'wishlist' ) ); ?>" class="flex items-center gap-3 text-sm font-bold text-gray-700 hover:text-[#0B5E34] transition-colors py-3 border-b border-gray-100">
                         <svg class="w-5 h-5 text-[#0B5E34] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
                         </svg>

@@ -57,7 +57,7 @@ $cart_count = WC()->cart ? WC()->cart->get_cart_contents_count() : 0;
     <?php if ( $cart_count > 0 ) : ?>
         <div class="jt-cart-reminder-banner">
             <div class="jt-cart-reminder-info">
-                <span class="jt-cart-reminder-icon">🛒</span>
+                <span class="jt-cart-reminder-icon"><i class="fa-solid fa-cart-shopping"></i></span>
                 <span class="jt-cart-reminder-text">
                     <?php
                     printf(
@@ -93,7 +93,7 @@ $cart_count = WC()->cart ? WC()->cart->get_cart_contents_count() : 0;
     <!-- Shopee-style Horizontal Order Status Counter -->
     <div class="jt-dashboard-status-section">
         <h3 class="jt-section-title">
-            <span>📦 <?php esc_html_e( 'Status Pesanan Saya', 'jendela-ternak' ); ?></span>
+            <span><i class="fa-solid fa-box" style="margin-right: 6px;"></i><?php esc_html_e( 'Status Pesanan Saya', 'jendela-ternak' ); ?></span>
             <a href="<?php echo $orders_url; ?>" class="jt-title-link"><?php esc_html_e( 'Lihat Semua Riwayat ❯', 'jendela-ternak' ); ?></a>
         </h3>
         
@@ -101,7 +101,7 @@ $cart_count = WC()->cart ? WC()->cart->get_cart_contents_count() : 0;
             <!-- Belum Bayar -->
             <a href="<?php echo add_query_arg( 'order_status', 'pending', $orders_url ); ?>" class="jt-status-card">
                 <div class="jt-status-icon-wrapper">
-                    <span class="jt-status-icon">💳</span>
+                    <span class="jt-status-icon"><i class="fa-solid fa-credit-card"></i></span>
                     <?php if ( $count_pending > 0 ) : ?>
                         <span class="jt-status-badge"><?php echo esc_html( $count_pending ); ?></span>
                     <?php endif; ?>
@@ -112,7 +112,7 @@ $cart_count = WC()->cart ? WC()->cart->get_cart_contents_count() : 0;
             <!-- Dikemas -->
             <a href="<?php echo add_query_arg( 'order_status', 'processing', $orders_url ); ?>" class="jt-status-card">
                 <div class="jt-status-icon-wrapper">
-                    <span class="jt-status-icon">📦</span>
+                    <span class="jt-status-icon"><i class="fa-solid fa-box"></i></span>
                     <?php if ( $count_packing > 0 ) : ?>
                         <span class="jt-status-badge"><?php echo esc_html( $count_packing ); ?></span>
                     <?php endif; ?>
@@ -123,7 +123,7 @@ $cart_count = WC()->cart ? WC()->cart->get_cart_contents_count() : 0;
             <!-- Dikirim -->
             <a href="<?php echo add_query_arg( 'order_status', 'shipping', $orders_url ); ?>" class="jt-status-card">
                 <div class="jt-status-icon-wrapper">
-                    <span class="jt-status-icon">🚚</span>
+                    <span class="jt-status-icon"><i class="fa-solid fa-truck"></i></span>
                     <?php if ( $count_shipping > 0 ) : ?>
                         <span class="jt-status-badge"><?php echo esc_html( $count_shipping ); ?></span>
                     <?php endif; ?>
@@ -134,7 +134,7 @@ $cart_count = WC()->cart ? WC()->cart->get_cart_contents_count() : 0;
             <!-- Selesai -->
             <a href="<?php echo add_query_arg( 'order_status', 'completed', $orders_url ); ?>" class="jt-status-card">
                 <div class="jt-status-icon-wrapper">
-                    <span class="jt-status-icon">⭐</span>
+                    <span class="jt-status-icon"><i class="fa-solid fa-star"></i></span>
                     <?php if ( $count_completed > 0 ) : ?>
                         <span class="jt-status-badge"><?php echo esc_html( $count_completed ); ?></span>
                     <?php endif; ?>
@@ -146,11 +146,11 @@ $cart_count = WC()->cart ? WC()->cart->get_cart_contents_count() : 0;
 
     <!-- Quick Navigation Cards Grid -->
     <div class="jt-dashboard-quick-nav">
-        <h3 class="jt-section-title">🛠️ <?php esc_html_e( 'Pintasan Menu', 'jendela-ternak' ); ?></h3>
+        <h3 class="jt-section-title"><i class="fa-solid fa-toolbox" style="margin-right: 6px;"></i><?php esc_html_e( 'Pintasan Menu', 'jendela-ternak' ); ?></h3>
         
         <div class="jt-quick-grid">
             <a href="<?php echo $orders_url; ?>" class="jt-quick-card">
-                <div class="jt-quick-emoji">📋</div>
+                <div class="jt-quick-emoji"><i class="fa-solid fa-clipboard-list"></i></div>
                 <div class="jt-quick-info">
                     <h4><?php esc_html_e( 'Pesanan Saya', 'jendela-ternak' ); ?></h4>
                     <p><?php esc_html_e( 'Cek riwayat pembelanjaan, lacak resi, & cetak invoice.', 'jendela-ternak' ); ?></p>
@@ -158,7 +158,7 @@ $cart_count = WC()->cart ? WC()->cart->get_cart_contents_count() : 0;
             </a>
             
             <a href="<?php echo $address_url; ?>" class="jt-quick-card">
-                <div class="jt-quick-emoji">📍</div>
+                <div class="jt-quick-emoji"><i class="fa-solid fa-location-dot"></i></div>
                 <div class="jt-quick-info">
                     <h4><?php esc_html_e( 'Alamat Pengiriman', 'jendela-ternak' ); ?></h4>
                     <p><?php esc_html_e( 'Atur alamat utama pengiriman hewan dan pakan ternak.', 'jendela-ternak' ); ?></p>
@@ -166,7 +166,7 @@ $cart_count = WC()->cart ? WC()->cart->get_cart_contents_count() : 0;
             </a>
             
             <a href="<?php echo $account_url; ?>" class="jt-quick-card">
-                <div class="jt-quick-emoji">🔒</div>
+                <div class="jt-quick-emoji"><i class="fa-solid fa-user-gear"></i></div>
                 <div class="jt-quick-info">
                     <h4><?php esc_html_e( 'Detail Akun', 'jendela-ternak' ); ?></h4>
                     <p><?php esc_html_e( 'Ubah nama tampilan, email login, dan perbarui sandi.', 'jendela-ternak' ); ?></p>

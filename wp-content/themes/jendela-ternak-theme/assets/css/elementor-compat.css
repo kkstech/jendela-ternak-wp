@@ -1,0 +1,135 @@
+/**
+ * elementor-compat.css
+ * CSS kompatibilitas antara tema Jendela Ternak dan Elementor Free.
+ *
+ * File ini di-load hanya ketika Elementor aktif (via inc/elementor-support.php).
+ * Tujuan: mencegah global CSS reset tema merusak widget-widget Elementor.
+ *
+ * @package JendelaTernakMalang
+ */
+
+/* ==========================================================================
+   Fix 1: Button Reset
+   Tema punya: button { border: none; background: none; font-family: ... }
+   Ini bisa merusak tombol Elementor yang butuh background & border.
+   ========================================================================== */
+.elementor-widget-button .elementor-button,
+.elementor-widget-button .elementor-button:hover,
+.elementor-widget-button .elementor-button:focus {
+    background: revert;
+    border: revert;
+}
+
+/* ==========================================================================
+   Fix 2: Image Display Block
+   Tema punya: img { display: block; }
+   Ini merusak inline images di widget Elementor (carousel, gallery, dll.)
+   ========================================================================== */
+.elementor-image img,
+.elementor-widget-image img,
+.elementor-widget-image-carousel img,
+.elementor-widget-slides img,
+.elementor-widget-media-carousel img,
+.elementor-carousel img,
+.elementor-icon-box-icon img,
+.elementor-widget-icon-box img {
+    display: inline-block;
+}
+
+/* ==========================================================================
+   Fix 3: Link Color Inherit
+   Tema punya: a { color: inherit; text-decoration: none; }
+   Elementor perlu kontrol penuh atas warna link di dalam widget-nya.
+   ========================================================================== */
+.elementor-element a,
+.elementor-element a:hover,
+.elementor-element a:visited {
+    color: revert;
+    text-decoration: revert;
+}
+
+/* Tapi pastikan tetap inherit di dalam teks biasa Elementor */
+.elementor-widget-text-editor a,
+.elementor-widget-heading a {
+    color: inherit;
+}
+
+/* ==========================================================================
+   Fix 4: Box Sizing Consistency
+   Pastikan semua elemen Elementor menggunakan border-box (konsisten dengan tema)
+   ========================================================================== */
+.elementor-section,
+.elementor-container,
+.elementor-widget-wrap,
+.elementor-element,
+.elementor-widget,
+.e-con,
+.e-con-inner {
+    box-sizing: border-box;
+}
+
+/* ==========================================================================
+   Fix 5: Global Margin/Padding Reset
+   Tema punya: *, *::before, *::after { margin: 0; padding: 0; }
+   Elementor internal spacing menggunakan margin/padding sendiri.
+   Pastikan Elementor spacing tidak di-override.
+   ========================================================================== */
+.elementor-section .elementor-column-gap-default > .elementor-column > .elementor-element-populated {
+    padding: var(--column-padding, 10px);
+}
+
+/* ==========================================================================
+   Fix 6: Heading Reset (h1-h6)
+   Tema mungkin punya global heading styles yang tidak diinginkan di Elementor
+   ========================================================================== */
+.elementor-heading-title {
+    font-size: revert;
+    font-weight: revert;
+    line-height: revert;
+    color: revert;
+}
+
+/* ==========================================================================
+   Fix 7: Elementor Container Width — Sesuaikan dengan lebar tema (1280px)
+   -------------------------------------------------------------------------
+   MASALAH SEBELUMNYA: Kode lama menghapus max-width dari .jt-main dan
+   .jt-container, yang menyebabkan konten Elementor mepet full-width.
+
+   SOLUSI: Biarkan .jt-main dan .jt-container tema berjalan normal.
+   Sebaliknya, batasi Elementor section/container agar mengikuti lebar tema.
+   ========================================================================== */
+
+/* Batasi lebar Elementor section (layout lama Elementor) */
+.elementor-section.elementor-section-boxed > .elementor-container {
+    max-width: var(--container-max, 1280px);
+}
+
+/* Batasi lebar Elementor Flexbox Container (layout baru Elementor 3.6+) */
+.e-con {
+    max-width: var(--container-max, 1280px) !important;
+}
+
+/* Pastikan inner container juga mengikuti */
+.e-con-inner {
+    max-width: 100%;
+}
+
+/* Jangan hapus max-width dari container tema — biarkan berjalan normal */
+/* .jt-elementor-page .jt-main, */
+/* .jt-elementor-page .jt-container { max-width: none; } — DIHAPUS */
+
+/* ==========================================================================
+   Fix 8: Alpine.js x-cloak conflict
+   Elementor mungkin butuh elemen yang tersembunyi sementara tidak terpengaruh
+   ========================================================================== */
+.elementor-element[x-cloak] {
+    display: block !important;
+}
+
+/* ==========================================================================
+   Elementor Editor Overrides (hanya di dalam editor, bukan frontend)
+   ========================================================================== */
+.elementor-editor-active .jt-elementor-page .jt-main {
+    min-height: 100vh;
+}
+

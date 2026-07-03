@@ -25,6 +25,10 @@ window.jtShopFilter = function() {
         pendingMaxPrice: '',
         pendingRating: '',
 
+        // ── Collapse States ─────────────────────────────────────────────────
+        categoryWidgetOpen: true,
+        showAllCategories: false,
+
         init() {
             this.initFromUrl();
 
@@ -49,6 +53,19 @@ window.jtShopFilter = function() {
             this.pendingMinPrice  = this.minPrice;
             this.pendingMaxPrice  = this.maxPrice;
             this.pendingRating    = this.rating;
+
+            // Jika ada kategori aktif dari URL, otomatis tampilkan semua kategori
+            if (this.category) {
+                this.showAllCategories = true;
+            }
+        },
+
+        /**
+         * Pilih Kategori dan langsung terapkan filter (Auto-Apply)
+         */
+        selectCategory(slug) {
+            this.pendingCategory = (this.pendingCategory === slug) ? '' : slug;
+            this.applyFilters();
         },
 
         /**

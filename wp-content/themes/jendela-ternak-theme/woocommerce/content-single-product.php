@@ -397,13 +397,17 @@ $product_name = $product->get_name();
             </div>
 
             <!-- Deskripsi Produk (Collapsible) -->
+            <?php
+            $has_long_desc = $product->get_description() && strlen( strip_tags( $product->get_description() ) ) > 300;
+            $default_expanded = ! $has_long_desc;
+            ?>
             <div class="bg-white md:p-6 p-4 md:rounded-2xl rounded-none md:shadow-sm shadow-none md:border border-y border-gray-100 description-card"
-                 x-data="{ expanded: true }">
+                 x-data="{ expanded: <?php echo $default_expanded ? 'true' : 'false'; ?> }">
                 <div class="border-b border-gray-100 pb-3 mb-4">
                     <h3 class="text-md font-extrabold text-[#0B5E34] uppercase tracking-wider">Deskripsi Produk</h3>
                 </div>
-                <div class="jt-desc-fade" :class="expanded ? 'expanded' : ''">
-                    <div class="jt-desc-body text-xs text-gray-700 leading-relaxed space-y-3"
+                <div class="jt-desc-fade<?php echo $default_expanded ? ' expanded' : ''; ?>" :class="expanded ? 'expanded' : ''">
+                    <div class="jt-desc-body text-xs text-gray-700 leading-relaxed space-y-3 <?php echo $default_expanded ? 'expanded' : 'collapsed'; ?>"
                          :class="expanded ? 'expanded' : 'collapsed'">
                         <?php if ( $product->get_description() ) : ?>
                             <?php echo wp_kses_post( wpautop( $product->get_description() ) ); ?>
@@ -412,16 +416,16 @@ $product_name = $product->get_name();
                         <?php endif; ?>
                     </div>
                 </div>
-                <?php if ( $product->get_description() && strlen( strip_tags( $product->get_description() ) ) > 300 ) : ?>
+                <?php if ( $has_long_desc ) : ?>
                 <button
                     type="button"
                     class="jt-desc-toggle-btn"
                     :class="expanded ? 'expanded' : ''"
                     @click="expanded = !expanded"
-                    aria-expanded="true"
+                    aria-expanded="false"
                     :aria-expanded="expanded ? 'true' : 'false'"
                 >
-                    <span x-text="expanded ? 'Lebih Sedikit' : 'Lihat Selengkapnya'">Lebih Sedikit</span>
+                    <span x-text="expanded ? 'Lebih Sedikit' : 'Lihat Selengkapnya'">Lihat Selengkapnya</span>
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                         <polyline points="6 9 12 15 18 9"/>
                     </svg>

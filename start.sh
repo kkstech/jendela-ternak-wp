@@ -29,5 +29,7 @@ echo "👉 Access WordPress at: http://127.0.0.1:$PORT"
 echo "👉 Stop the server by pressing: Ctrl+C"
 echo ""
 
-# Start the built-in server
-php -S 127.0.0.1:$PORT
+# Start the built-in server WITH router.php for pretty permalink support.
+# router.php mimics Apache mod_rewrite so URLs like /halaman-saya work
+# instead of /index.php/halaman-saya
+php -S 127.0.0.1:$PORT router.php

@@ -23,24 +23,51 @@ $categories = get_terms( array(
     <!-- ── 1. PRODUCT CATEGORIES ── -->
     <?php if ( ! empty( $categories ) && ! is_wp_error( $categories ) ) : ?>
         <div class="jt-widget jt-filter-widget">
-            <h3 class="jt-widget__title"><?php esc_html_e( 'Kategori Produk', 'jendela-ternak' ); ?></h3>
-            <ul class="jt-widget__list jt-filter-category-list">
-                <?php foreach ( $categories as $cat ) :
-                    if ( $cat->slug === 'uncategorized' ) continue;
-                ?>
-                    <li>
-                        <button
-                            type="button"
-                            class="jt-filter-cat-btn"
-                            :class="pendingCategory === '<?php echo esc_attr( $cat->slug ); ?>' ? 'active' : ''"
-                            @click="pendingCategory = (pendingCategory === '<?php echo esc_js( $cat->slug ); ?>') ? '' : '<?php echo esc_js( $cat->slug ); ?>'"
+            <h3 class="jt-widget__title jt-widget__title--collapsible" @click="categoryWidgetOpen = !categoryWidgetOpen" style="cursor: pointer; display: flex; justify-content: space-between; align-items: center; user-select: none;">
+                <span><?php esc_html_e( 'Kategori Produk', 'jendela-ternak' ); ?></span>
+                <svg class="jt-chevron-icon" :class="categoryWidgetOpen ? 'rotate-180' : ''" width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="transition: transform var(--transition-fast); transform-origin: center;">
+                    <path d="M1 1l4 4 4-4"/>
+                </svg>
+            </h3>
+            
+            <div x-show="categoryWidgetOpen" x-transition>
+                <ul class="jt-widget__list jt-filter-category-list">
+                    <?php 
+                    $idx = 0;
+                    foreach ( $categories as $cat ) :
+                        if ( $cat->slug === 'uncategorized' ) continue;
+                        $idx++;
+                    ?>
+                        <li 
+                            x-show="showAllCategories || pendingCategory === '<?php echo esc_js( $cat->slug ); ?>' || <?php echo $idx; ?> <= 5"
+                            x-transition
                         >
-                            <span class="jt-filter-cat-name"><?php echo esc_html( $cat->name ); ?></span>
-                            <span class="jt-filter-cat-count"><?php echo esc_html( $cat->count ); ?></span>
-                        </button>
-                    </li>
-                <?php endforeach; ?>
-            </ul>
+                            <button
+                                type="button"
+                                class="jt-filter-cat-btn"
+                                :class="pendingCategory === '<?php echo esc_attr( $cat->slug ); ?>' ? 'active' : ''"
+                                @click="selectCategory('<?php echo esc_js( $cat->slug ); ?>')"
+                            >
+                                <span class="jt-filter-cat-name"><?php echo esc_html( $cat->name ); ?></span>
+                                <span class="jt-filter-cat-count"><?php echo esc_html( $cat->count ); ?></span>
+                            </button>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+
+                <?php if ( $idx > 5 ) : ?>
+                    <button
+                        type="button"
+                        class="jt-filter-more-btn"
+                        @click="showAllCategories = !showAllCategories"
+                    >
+                        <span x-text="showAllCategories ? '<?php esc_html_e( 'Lihat Lebih Sedikit', 'jendela-ternak' ); ?>' : '<?php esc_html_e( 'Lihat Selengkapnya', 'jendela-ternak' ); ?>'"></span>
+                        <svg class="jt-chevron-icon" :class="showAllCategories ? 'rotate-180' : ''" width="8" height="5" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="transition: transform var(--transition-fast); transform-origin: center;">
+                            <path d="M1 1l4 4 4-4"/>
+                        </svg>
+                    </button>
+                <?php endif; ?>
+            </div>
         </div>
     <?php endif; ?>
 

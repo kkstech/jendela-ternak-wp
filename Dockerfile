@@ -11,8 +11,21 @@ RUN { \
     echo 'max_execution_time = 300'; \
 } > /usr/local/etc/php/conf.d/wordpress-custom.ini
 
+# Enable Apache mod_rewrite — REQUIRED for WordPress pretty permalinks.
+# Without this, URLs will appear as /index.php/page-name instead of /page-name.
+RUN a2enmod rewrite
+
+# Allow .htaccess overrides in the web root (AllowOverride All)
+# This is necessary so Apache respects the WordPress .htaccess rewrite rules.
+RUN sed -i 's|AllowOverride None|AllowOverride All|g' /etc/apache2/apache2.conf \
+    && sed -i 's|AllowOverride None|AllowOverride All|g' /etc/apache2/sites-available/000-default.conf 2>/dev/null || true
+
 # Copy all project files into the Apache web root
 COPY . /var/www/html/
 
 # Ensure correct file permissions for Apache (www-data)
-RUN chown -R www-data:www-data /var/www/html/
+RUN chown -R www-data:www-data /var/www/html/ \
+    && find /var/www/html -type f -name "*.php" -exec chmod 644 {} \; \
+    && find /var/www/html -type d -exec chmod 755 {} \; \
+    && chmod 644 /var/www/html/.htaccess
+

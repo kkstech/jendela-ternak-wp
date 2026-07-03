@@ -55,39 +55,48 @@ remove_action( 'woocommerce_after_shop_loop', 'woocommerce_pagination', 10 );
 
             <!-- Loop Products wrapper with loading state -->
             <div class="jt-products-grid-container" style="position:relative;">
-                <!-- Loading Spinner Overlay -->
-                <div 
-                    class="jt-filter-loading-overlay" 
-                    x-show="loading" 
-                    x-cloak 
-                    aria-hidden="true"
-                >
-                    <div class="jt-spinner"></div>
-                </div>
+                <div id="jt-products-catalog-grid">
+                    <!-- Skeleton loading grid -->
+                    <div class="jt-products-grid" x-show="loading" x-cloak>
+                        <?php for ( $i = 0; $i < 10; $i++ ) : ?>
+                            <div class="jt-product-skeleton-card">
+                                <div class="jt-product-skeleton-img jt-skeleton-shimmer"></div>
+                                <div class="jt-product-skeleton-info">
+                                    <div class="jt-product-skeleton-title jt-skeleton-shimmer"></div>
+                                    <div class="jt-product-skeleton-title jt-skeleton-shimmer short"></div>
+                                    <div class="jt-product-skeleton-price jt-skeleton-shimmer"></div>
+                                    <div class="jt-product-skeleton-rating jt-skeleton-shimmer"></div>
+                                    <div class="jt-product-skeleton-meta jt-skeleton-shimmer"></div>
+                                </div>
+                            </div>
+                        <?php endfor; ?>
+                    </div>
 
-                <div id="jt-products-catalog-grid" :class="loading ? 'jt-opacity-50' : ''">
-                    <?php if ( woocommerce_product_loop() ) : ?>
+                    <!-- Actual Products Grid -->
+                    <div x-show="!loading">
+                        <?php if ( woocommerce_product_loop() ) : ?>
 
-                        <div class="jt-products-grid">
-                            <?php while ( have_posts() ) : the_post(); ?>
-                                <?php get_template_part( 'template-parts/product/product-card' ); ?>
-                            <?php endwhile; ?>
-                        </div>
+                            <div class="jt-products-grid">
+                                <?php while ( have_posts() ) : the_post(); ?>
+                                    <?php get_template_part( 'template-parts/product/product-card' ); ?>
+                                <?php endwhile; ?>
+                            </div>
 
-                    <?php else : ?>
-                        <!-- No Products Found -->
-                        <div class="jt-no-products">
-                            <svg width="64" height="64" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="opacity:0.3;margin:0 auto 12px;">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                            </svg>
-                            <p><?php esc_html_e( 'Tidak ada produk yang cocok dengan pilihan Anda.', 'jendela-ternak' ); ?></p>
-                        </div>
-                    <?php endif; ?>
+                        <?php else : ?>
+                            <!-- No Products Found -->
+                            <div class="jt-no-products">
+                                <svg width="64" height="64" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="opacity:0.3;margin:0 auto 12px;">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                <p><?php esc_html_e( 'Tidak ada produk yang cocok dengan pilihan Anda.', 'jendela-ternak' ); ?></p>
+                            </div>
+                        <?php endif; ?>
+                    </div>
                 </div>
             </div>
 
             <!-- Pagination -->
-            <div class="jt-catalog-pagination">
+            <div class="jt-catalog-pagination" x-show="!loading">
                 <?php woocommerce_pagination(); ?>
             </div>
 

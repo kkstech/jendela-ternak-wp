@@ -30,6 +30,11 @@ function jt_theme_setup() {
     add_theme_support( 'wc-product-gallery-lightbox' );
     add_theme_support( 'wc-product-gallery-slider' );
 
+    // Elementor compatibility
+    // Mendeklarasikan tema ini kompatibel dengan Elementor.
+    // Logika integrasi detail ada di inc/elementor-support.php
+    add_theme_support( 'elementor' );
+
     // Menus
     register_nav_menus( [
         'primary' => __( 'Primary Menu', 'jendela-ternak' ),

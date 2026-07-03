@@ -18,29 +18,32 @@ do_action( 'woocommerce_before_account_navigation' );
             $classes = wc_get_account_menu_item_classes( $endpoint );
             $class_string = is_array( $classes ) ? implode( ' ', $classes ) : $classes;
             
-            // Map custom emojis to Shopee-style links
-            $emoji = '📄';
+            // Map custom Font Awesome icons to Shopee-style links
+            $icon_class = 'fa-solid fa-file-lines';
             switch ( $endpoint ) {
                 case 'dashboard':
-                    $emoji = '🏠';
+                    $icon_class = 'fa-solid fa-house';
                     break;
                 case 'orders':
-                    $emoji = '📦';
+                    $icon_class = 'fa-solid fa-box';
                     break;
                 case 'edit-address':
-                    $emoji = '📍';
+                    $icon_class = 'fa-solid fa-location-dot';
+                    break;
+                case 'wishlist':
+                    $icon_class = 'fa-solid fa-heart';
                     break;
                 case 'edit-account':
-                    $emoji = '⚙️';
+                    $icon_class = 'fa-solid fa-user-gear';
                     break;
                 case 'customer-logout':
-                    $emoji = '🚪';
+                    $icon_class = 'fa-solid fa-right-from-bracket';
                     break;
             }
         ?>
             <li class="jt-myaccount-navigation__item <?php echo esc_attr( $class_string ); ?>">
                 <a href="<?php echo $url; ?>" class="jt-myaccount-navigation__link">
-                    <span class="jt-myaccount-navigation__icon"><?php echo esc_html( $emoji ); ?></span>
+                    <span class="jt-myaccount-navigation__icon"><i class="<?php echo esc_attr( $icon_class ); ?>"></i></span>
                     <span class="jt-myaccount-navigation__label"><?php echo esc_html( $label ); ?></span>
                 </a>
             </li>

@@ -17,5 +17,7 @@ define( 'JT_THEME_URI', get_template_directory_uri() );
 require_once JT_THEME_DIR . '/inc/theme-setup.php';
 require_once JT_THEME_DIR . '/inc/enqueue-assets.php';
 require_once JT_THEME_DIR . '/inc/woocommerce-hooks.php';
+require_once JT_THEME_DIR . '/inc/saved-addresses.php';
 require_once JT_THEME_DIR . '/inc/customizer.php';
 require_once JT_THEME_DIR . '/inc/admin-options.php';
+require_once JT_THEME_DIR . '/inc/elementor-support.php';

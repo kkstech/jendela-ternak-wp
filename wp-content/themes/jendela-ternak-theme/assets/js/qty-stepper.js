@@ -7,7 +7,7 @@
     'use strict';
 
     function initQtyStepper() {
-        var inputs = document.querySelectorAll('form.cart input.qty, form.variations_form input.qty');
+        var inputs = document.querySelectorAll('form.cart input.qty, form.variations_form input.qty, form.woocommerce-cart-form input.qty');
         inputs.forEach(function (input) {
             if (input.dataset.stepperInit) return;
             input.dataset.stepperInit = 'true';
@@ -72,9 +72,9 @@
         initQtyStepper();
     }
 
-    // Re-init after WooCommerce variation updates
+    // Re-init after WooCommerce variation updates and cart updates
     if (window.jQuery) {
-        jQuery(document).on('found_variation reset_data', function () {
+        jQuery(document).on('found_variation reset_data updated_cart_totals', function () {
             setTimeout(initQtyStepper, 100);
         });
     }

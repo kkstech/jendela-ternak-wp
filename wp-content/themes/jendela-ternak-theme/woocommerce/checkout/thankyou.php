@@ -32,7 +32,7 @@ $wa_url         = 'https://wa.me/' . esc_attr( $wa_number ) . '?text=' . $wa_msg
 
     <!-- Branded Banner Message -->
     <div class="jt-thankyou-card" style="text-align:center;padding:48px 20px;">
-        <span style="font-size:48px;display:block;margin-bottom:12px;" role="img" aria-label="Celebration">🎉</span>
+        <span style="font-size:48px;display:block;margin-bottom:12px;color:var(--color-primary);" role="img" aria-label="Celebration"><i class="fa-solid fa-circle-check"></i></span>
         <h2 style="font-size:24px;font-weight:800;color:var(--color-primary);margin-bottom:8px;">
             <?php esc_html_e( 'Pesanan Diterima!', 'jendela-ternak' ); ?>
         </h2>
@@ -58,7 +58,7 @@ $wa_url         = 'https://wa.me/' . esc_attr( $wa_number ) . '?text=' . $wa_msg
 
     <!-- Branded Order Info Summary Card -->
     <div class="jt-thankyou-card">
-        <h2>🧾 <?php esc_html_e( 'Ringkasan Pesanan', 'jendela-ternak' ); ?></h2>
+        <h2><i class="fa-solid fa-file-invoice" style="margin-right: 8px;"></i><?php esc_html_e( 'Ringkasan Pesanan', 'jendela-ternak' ); ?></h2>
         
         <div class="jt-thankyou-meta">
             <div class="jt-thankyou-meta-item">
@@ -81,7 +81,7 @@ $wa_url         = 'https://wa.me/' . esc_attr( $wa_number ) . '?text=' . $wa_msg
 
         <?php if ( $order->get_payment_method() === 'cod' ) : ?>
             <p style="font-size:13px;color:var(--color-text-muted);line-height:1.6;margin-top:12px;">
-                💡 <em><?php esc_html_e( 'Metode pembayaran di tempat (COD). Harap persiapkan uang tunai pas saat kurir Biteship tiba untuk mengantar barang.', 'jendela-ternak' ); ?></em>
+                <i class="fa-solid fa-lightbulb" style="margin-right: 6px;color:var(--color-accent);"></i> <em><?php esc_html_e( 'Metode pembayaran di tempat (COD). Harap persiapkan uang tunai pas saat kurir Biteship tiba untuk mengantar barang.', 'jendela-ternak' ); ?></em>
             </p>
         <?php endif; ?>
     </div>
@@ -92,7 +92,7 @@ $wa_url         = 'https://wa.me/' . esc_attr( $wa_number ) . '?text=' . $wa_msg
     $courier_name   = get_post_meta( $order_id, '_biteship_courier_name', true ) ?: $order->get_shipping_method();
     ?>
     <div class="jt-thankyou-card">
-        <h2>🚚 <?php esc_html_e( 'Detail Pengiriman', 'jendela-ternak' ); ?></h2>
+        <h2><i class="fa-solid fa-truck" style="margin-right: 8px;"></i><?php esc_html_e( 'Detail Pengiriman', 'jendela-ternak' ); ?></h2>
         <div style="font-size:13px;line-height:1.7;">
             <p style="margin-bottom:8px;">
                 <strong><?php esc_html_e( 'Jasa Pengiriman:', 'jendela-ternak' ); ?></strong> <?php echo esc_html( $courier_name ); ?>
@@ -114,7 +114,7 @@ $wa_url         = 'https://wa.me/' . esc_attr( $wa_number ) . '?text=' . $wa_msg
 
     <!-- Items detail list table -->
     <div class="jt-thankyou-card" style="overflow-x:auto;">
-        <h2>🛒 <?php esc_html_e( 'Daftar Produk', 'jendela-ternak' ); ?></h2>
+        <h2><i class="fa-solid fa-cart-shopping" style="margin-right: 8px;"></i><?php esc_html_e( 'Daftar Produk', 'jendela-ternak' ); ?></h2>
         <table class="jt-cart-table" style="width:100%;">
             <thead>
                 <tr>

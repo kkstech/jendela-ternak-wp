@@ -33,6 +33,9 @@ remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_p
 remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_upsell_display', 15 );
 remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_related_products', 20 );
 
+// Remove default WooCommerce proceed to checkout button in cart totals (we render our own custom green button)
+remove_action( 'woocommerce_proceed_to_checkout', 'woocommerce_button_proceed_to_checkout', 20 );
+
 add_action( 'woocommerce_before_main_content', 'jt_wc_wrapper_start', 10 );
 function jt_wc_wrapper_start() {
     echo '<main id="main-content" class="jt-main"><div class="jt-container">';
@@ -219,9 +222,137 @@ function jt_custom_account_menu_items( $items ) {
     if ( isset( $items['edit-account'] ) ) {
         $items['edit-account'] = __( 'Detail Akun', 'jendela-ternak' );
     }
-    if ( isset( $items['customer-logout'] ) ) {
+
+    // Insert Wishlist before Logout
+    $logout = isset( $items['customer-logout'] ) ? $items['customer-logout'] : '';
+    unset( $items['customer-logout'] );
+
+    $items['wishlist'] = __( 'Wishlist Saya', 'jendela-ternak' );
+
+    if ( $logout ) {
         $items['customer-logout'] = __( 'Keluar', 'jendela-ternak' );
     }
 
     return $items;
 }
+
+// ─────────────────────────────────────────────────────────────────
+// 11. CUSTOM PAGINATION ARGUMENTS (Prev/Next SVG Arrows)
+// ─────────────────────────────────────────────────────────────────
+add_filter( 'woocommerce_pagination_args', 'jt_custom_pagination_args' );
+function jt_custom_pagination_args( $args ) {
+    $args['prev_text'] = '<span class="jt-arrow-icon-circle"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:block;"><line x1="12" y1="8" x2="4" y2="8"></line><polyline points="8 12 4 8 8 4"></polyline></svg></span> ' . esc_html__( 'Previous', 'jendela-ternak' );
+    $args['next_text'] = esc_html__( 'Next', 'jendela-ternak' ) . ' <span class="jt-arrow-icon-circle"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:block;"><line x1="4" y1="8" x2="12" y2="8"></line><polyline points="8 4 12 8 8 12"></polyline></svg></span>';
+    return $args;
+}
+
+// ─────────────────────────────────────────────────────────────────
+// 12. WISHLIST MY ACCOUNT ENDPOINT REGISTRATION
+// ─────────────────────────────────────────────────────────────────
+add_action( 'init', 'jt_add_wishlist_endpoint' );
+function jt_add_wishlist_endpoint() {
+    add_rewrite_endpoint( 'wishlist', EP_PAGES );
+}
+
+add_filter( 'query_vars', 'jt_wishlist_query_vars', 0 );
+function jt_wishlist_query_vars( $vars ) {
+    $vars[] = 'wishlist';
+    return $vars;
+}
+
+add_action( 'woocommerce_account_wishlist_endpoint', 'jt_wishlist_endpoint_content' );
+function jt_wishlist_endpoint_content() {
+    get_template_part( 'template-parts/product/wishlist-content' );
+}
+
+// ─────────────────────────────────────────────────────────────────
+// 13. AJAX WISHLIST PRODUCTS FETCH
+// ─────────────────────────────────────────────────────────────────
+add_action( 'wp_ajax_jt_get_wishlist_products', 'jt_get_wishlist_products' );
+add_action( 'wp_ajax_nopriv_jt_get_wishlist_products', 'jt_get_wishlist_products' );
+
+function jt_get_wishlist_products() {
+    if ( ! isset( $_POST['product_ids'] ) || ! is_array( $_POST['product_ids'] ) ) {
+        wp_send_json_error( 'Invalid product list' );
+    }
+
+    $product_ids = array_map( 'absint', $_POST['product_ids'] );
+
+    if ( empty( $product_ids ) ) {
+        ob_start();
+        get_template_part( 'template-parts/product/wishlist-empty-state' );
+        $html = ob_get_clean();
+        wp_send_json_success( [ 'html' => $html, 'count' => 0 ] );
+    }
+
+    $args = array(
+        'post_type'      => 'product',
+        'post_status'    => 'publish',
+        'posts_per_page' => -1,
+        'post__in'       => $product_ids,
+        'orderby'        => 'post__in',
+    );
+
+    $query = new WP_Query( $args );
+
+    ob_start();
+    if ( $query->have_posts() ) {
+        while ( $query->have_posts() ) {
+            $query->the_post();
+            global $product;
+            $product = wc_get_product( get_the_ID() );
+            $id = $product->get_id();
+            ?>
+            <div class="jt-wishlist-card-wrapper" data-product-id="<?php echo esc_attr( $id ); ?>">
+                <!-- Remove from wishlist button (X) -->
+                <button type="button" class="jt-wishlist-remove-btn" @click="removeFromWishlist(<?php echo esc_attr( $id ); ?>, $event)" aria-label="<?php esc_attr_e( 'Hapus dari Wishlist', 'jendela-ternak' ); ?>">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                    </svg>
+                </button>
+
+                <!-- Standard Product Card -->
+                <?php get_template_part( 'template-parts/product/product-card' ); ?>
+
+                <!-- Quick AJAX Add to Cart button overlay -->
+                <div class="jt-wishlist-hover-action">
+                    <button type="button" class="jt-btn jt-btn--primary jt-btn--sm jt-wishlist-add-cart-btn" @click="quickAddToCart(<?php echo esc_attr( $id ); ?>, $event)">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                        </svg>
+                        <?php esc_html_e( 'Masukkan Keranjang', 'jendela-ternak' ); ?>
+                    </button>
+                </div>
+            </div>
+            <?php
+        }
+        wp_reset_postdata();
+    } else {
+        get_template_part( 'template-parts/product/wishlist-empty-state' );
+    }
+    $html = ob_get_clean();
+
+    wp_send_json_success( [ 'html' => $html, 'count' => $query->found_posts ] );
+}
+
+// ─────────────────────────────────────────────────────────────────
+// 14. REDIRECT STANDALONE WISHLIST PAGE TO MY ACCOUNT ENDPOINT
+// ─────────────────────────────────────────────────────────────────
+add_action( 'template_redirect', 'jt_redirect_standalone_wishlist' );
+function jt_redirect_standalone_wishlist() {
+    global $wp;
+    $current_slug = isset( $wp->request ) ? trim( $wp->request, '/' ) : '';
+    if ( 'wishlist' === $current_slug || is_page( 'wishlist' ) ) {
+        wp_safe_redirect( wc_get_account_endpoint_url( 'wishlist' ) );
+        exit;
+    }
+}
+
+// ─────────────────────────────────────────────────────────────────
+// 15. CUSTOM CHECKOUT ORDER BUTTON TEXT
+// ─────────────────────────────────────────────────────────────────
+add_filter( 'woocommerce_order_button_text', 'jt_custom_checkout_button_text' );
+function jt_custom_checkout_button_text( $button_text ) {
+    return __( 'Pesan Sekarang', 'jendela-ternak' );
+}
+

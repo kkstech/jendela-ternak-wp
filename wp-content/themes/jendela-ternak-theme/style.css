@@ -95,3 +95,732 @@ button { cursor: pointer; border: none; background: none; font-family: var(--fon
    ========================================================================== */
 .text-clamp-1 { overflow: hidden; display: -webkit-box; -webkit-line-clamp: 1; line-clamp: 1; -webkit-box-orient: vertical; }
 .text-clamp-2 { overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; }
+
+/* ==========================================================================
+   Saved Addresses (My Account & Checkout Modal)
+   ========================================================================== */
+
+/* My Account Address Manager */
+.jt-myaccount-addresses-wrapper,
+.jt-myaccount-address-form-wrapper {
+    background: var(--color-white);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
+}
+
+.jt-myaccount-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 16px;
+    margin-bottom: 20px;
+}
+
+.jt-myaccount-section-title {
+    font-size: 18px;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+}
+
+.jt-btn-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-muted);
+    transition: var(--transition-fast);
+}
+.jt-btn-back:hover {
+    color: var(--color-primary);
+}
+
+.jt-no-addresses-container {
+    text-align: center;
+    padding: 48px 24px;
+}
+.jt-no-addresses-icon {
+    font-size: 48px;
+    color: var(--color-text-muted);
+    opacity: 0.4;
+    margin-bottom: 16px;
+}
+.jt-no-addresses-text {
+    font-size: 14px;
+    color: var(--color-text-muted);
+}
+
+.jt-addresses-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.jt-address-card {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    transition: var(--transition-fast);
+    position: relative;
+    background: #FAFAFA;
+}
+.jt-address-card:hover {
+    border-color: var(--color-secondary);
+    background: var(--color-white);
+    box-shadow: var(--shadow-sm);
+}
+.jt-address-card--default {
+    border-color: var(--color-primary);
+    border-width: 1.5px;
+    background: #F4FAF6;
+}
+
+.jt-address-card__content {
+    flex: 1;
+    padding-right: 24px;
+}
+
+.jt-address-card__meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+.jt-address-card__name {
+    font-size: 14px;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+}
+.jt-address-card__divider {
+    color: var(--color-border);
+}
+.jt-address-card__phone {
+    font-size: 13px;
+    color: var(--color-text-muted);
+}
+
+.jt-address-card__details {
+    margin-bottom: 12px;
+}
+.jt-address-card__text {
+    font-size: 13px;
+    color: var(--color-text-muted);
+    line-height: 1.5;
+}
+
+.jt-address-card__badge-default {
+    display: inline-block;
+    background: var(--color-primary);
+    color: var(--color-white);
+    font-size: 10px;
+    font-weight: var(--font-weight-bold);
+    padding: 2px 8px;
+    border-radius: var(--radius-sm);
+    text-transform: uppercase;
+}
+
+.jt-address-card__actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+    height: 100%;
+    min-height: 80px;
+    gap: 12px;
+}
+
+.jt-address-card__crud {
+    display: flex;
+    gap: 12px;
+}
+.jt-address-action-link {
+    font-size: 12px;
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-secondary);
+    transition: var(--transition-fast);
+}
+.jt-address-action-link:hover {
+    text-decoration: underline;
+}
+.jt-address-action-link--danger {
+    color: var(--color-red);
+}
+.jt-address-action-link--danger:hover {
+    color: var(--color-red-dark);
+}
+
+/* Button style extensions */
+.jt-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-md);
+    padding: 10px 16px;
+    font-size: 13px;
+    font-weight: var(--font-weight-bold);
+    transition: var(--transition-fast);
+    text-decoration: none !important;
+}
+.jt-btn--primary {
+    background: var(--color-primary);
+    color: var(--color-white) !important;
+}
+.jt-btn--primary:hover {
+    opacity: 0.9;
+}
+.jt-btn--outline {
+    border: 1px solid var(--color-border);
+    color: var(--color-text) !important;
+    background: transparent;
+}
+.jt-btn--outline:hover {
+    background: var(--color-light-bg);
+}
+.jt-btn--sm {
+    padding: 6px 12px;
+    font-size: 12px;
+}
+.jt-btn--xs {
+    padding: 4px 8px;
+    font-size: 11px;
+}
+
+.jt-address-editor-form .form-row {
+    margin-bottom: 16px;
+}
+.jt-address-editor-form label {
+    font-weight: var(--font-weight-semibold);
+    display: block;
+    margin-bottom: 4px;
+    font-size: 12px;
+}
+.jt-address-editor-form input[type="text"],
+.jt-address-editor-form input[type="tel"],
+.jt-address-editor-form select {
+    width: 100%;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 10px 12px;
+    font-size: 13px;
+    outline: none;
+    transition: var(--transition-fast);
+}
+.jt-address-editor-form input[type="text"]:focus,
+.jt-address-editor-form select:focus {
+    border-color: var(--color-primary);
+}
+
+.jt-checkbox-default-row {
+    margin-top: 12px;
+    display: flex;
+    align-items: center;
+}
+.jt-checkbox-default-row label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+.jt-checkbox-default-row input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--color-primary);
+}
+
+.jt-address-form-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   Shopee-Style Checkout Modal
+   ───────────────────────────────────────────────────────────────── */
+.jt-address-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+}
+
+.jt-address-modal-content {
+    background: var(--color-white);
+    border-radius: var(--radius-lg);
+    width: 100%;
+    max-width: 540px;
+    display: flex;
+    flex-direction: column;
+    max-height: 80vh;
+    box-shadow: var(--shadow-lg);
+    animation: jtModalSlideUp 0.25s ease-out;
+}
+
+@keyframes jtModalSlideUp {
+    from { transform: translateY(40px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.jt-address-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--color-border);
+}
+.jt-address-modal-header h3 {
+    font-size: 16px;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+}
+.jt-address-modal-close-btn {
+    font-size: 24px;
+    color: var(--color-text-muted);
+    background: none;
+    border: none;
+    cursor: pointer;
+    line-height: 1;
+}
+.jt-address-modal-close-btn:hover {
+    color: var(--color-text);
+}
+
+.jt-address-modal-body {
+    padding: 20px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.jt-address-modal-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.jt-address-modal-item {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 14px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    position: relative;
+    background: var(--color-white);
+}
+.jt-address-modal-item:hover {
+    background: var(--color-light-bg);
+}
+.jt-address-modal-item--active {
+    border-color: var(--color-primary) !important;
+    background: #F4FAF6 !important;
+}
+
+.jt-address-modal-radio {
+    margin-top: 4px;
+    accent-color: var(--color-primary);
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.jt-address-modal-item-info {
+    flex: 1;
+    cursor: pointer;
+}
+
+.jt-address-modal-item-meta {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 4px;
+}
+.jt-address-modal-item-name {
+    font-size: 13px;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+}
+.jt-address-modal-item-divider {
+    color: var(--color-border);
+}
+.jt-address-modal-item-phone {
+    font-size: 12px;
+    color: var(--color-text-muted);
+}
+
+.jt-address-modal-item-text {
+    font-size: 12px;
+    color: var(--color-text-muted);
+    line-height: 1.4;
+    margin-bottom: 6px;
+}
+
+.jt-address-modal-item-badge {
+    display: inline-block;
+    background: var(--color-primary);
+    color: var(--color-white);
+    font-size: 9px;
+    font-weight: var(--font-weight-bold);
+    padding: 1px 6px;
+    border-radius: 2px;
+    text-transform: uppercase;
+}
+
+.jt-address-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 20px;
+    border-top: 1px solid var(--color-border);
+    background: #FAFAFA;
+    border-bottom-left-radius: var(--radius-lg);
+    border-bottom-right-radius: var(--radius-lg);
+}
+
+.jt-address-modal-add-new-btn {
+    margin-right: auto;
+}
+
+.jt-checkout-save-address-checkbox input[type="checkbox"] {
+    accent-color: var(--color-primary);
+    width: 15px;
+    height: 15px;
+}
+
+@media (max-width: 640px) {
+    .jt-address-modal-content {
+        max-height: 90vh;
+    }
+    .jt-address-modal-footer {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    .jt-address-modal-add-new-btn {
+        width: 100%;
+        margin-right: 0;
+        order: 3;
+    }
+    .jt-address-modal-footer .jt-btn:not(.jt-address-modal-add-new-btn) {
+        flex: 1;
+    }
+}
+
+/* ==========================================================================
+   Checkout Table Design Improvements
+   ========================================================================== */
+
+/* Table Base Styling */
+.jt-shopee-checkout-wrapper .jt-checkout-review-table {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--color-white);
+    margin-bottom: 24px;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* Header Styling */
+.jt-shopee-checkout-wrapper .jt-checkout-review-table thead {
+    background: #F8FAF8;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.jt-shopee-checkout-wrapper .jt-checkout-review-table thead th {
+    padding: 16px 20px;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--color-text-muted);
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    text-align: left;
+}
+
+.jt-shopee-checkout-wrapper .jt-checkout-review-table thead th.product-total {
+    text-align: right;
+}
+
+/* Body Rows Styling */
+.jt-shopee-checkout-wrapper .jt-checkout-review-table tbody tr {
+    transition: background-color var(--transition-fast);
+}
+
+.jt-shopee-checkout-wrapper .jt-checkout-review-table tbody tr:hover {
+    background-color: #FAFCFA;
+}
+
+.jt-shopee-checkout-wrapper .jt-checkout-review-table tbody td {
+    padding: 18px 20px;
+    border-bottom: 1px solid #F1F3F1;
+    vertical-align: middle;
+}
+
+/* Product Details */
+.jt-shopee-checkout-wrapper .jt-checkout-product-details {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.jt-shopee-checkout-wrapper .jt-checkout-product-thumb {
+    width: 60px;
+    height: 60px;
+    border-radius: var(--radius-md);
+    border: 1px solid #E5E8E5;
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.jt-shopee-checkout-wrapper .jt-checkout-product-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.jt-shopee-checkout-wrapper .jt-checkout-product-title {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: #1F2937;
+    margin-bottom: 4px;
+    display: block;
+    line-height: 1.4;
+}
+
+/* Variations */
+.jt-shopee-checkout-wrapper .wc-item-meta {
+    font-size: 11px;
+    color: var(--color-text-muted);
+    margin: 4px 0 0 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.jt-shopee-checkout-wrapper .wc-item-meta li {
+    background: #F3F4F6;
+    padding: 2px 8px;
+    border-radius: var(--radius-sm);
+    display: inline-block;
+}
+
+/* Price, Quantity, Subtotal Columns */
+.jt-shopee-checkout-wrapper .jt-checkout-review-table tbody td.product-price {
+    font-size: 13px;
+    font-weight: 600;
+    color: #4B5563;
+}
+
+.jt-shopee-checkout-wrapper .jt-checkout-review-table tbody td.product-quantity {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-text-muted);
+}
+
+.jt-shopee-checkout-wrapper .jt-checkout-review-table tbody td.product-total {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--color-text);
+    text-align: right;
+}
+
+/* Table Footer Summary styling */
+.jt-shopee-checkout-wrapper .jt-checkout-review-table tfoot {
+    background: #FCFCFC;
+    border-top: 2px solid var(--color-border);
+}
+
+.jt-shopee-checkout-wrapper .jt-checkout-review-table tfoot tr td,
+.jt-shopee-checkout-wrapper .jt-checkout-review-table tfoot tr th {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.jt-shopee-checkout-wrapper .jt-checkout-review-table tfoot th {
+    text-align: right;
+    font-size: 13px;
+    font-weight: 600;
+    color: #4B5563;
+}
+
+.jt-shopee-checkout-wrapper .jt-checkout-review-table tfoot td {
+    text-align: right;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--color-text);
+}
+
+/* Grand Total Row */
+.jt-shopee-checkout-wrapper .jt-checkout-review-table tfoot tr.order-total {
+    background: #F8FAF8;
+}
+
+.jt-shopee-checkout-wrapper .jt-checkout-review-table tfoot tr.order-total th {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--color-text);
+}
+
+.jt-shopee-checkout-wrapper .jt-checkout-review-table tfoot tr.order-total td strong {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--color-primary);
+}
+
+/* Coupon styling inside table */
+.jt-shopee-checkout-wrapper .jt-checkout-review-table tfoot tr.cart-discount td {
+    color: #10B981;
+}
+
+.jt-shopee-checkout-wrapper .jt-checkout-review-table tfoot tr.cart-discount th {
+    color: #10B981;
+}
+
+/* Shipping Selector Improvements */
+.jt-shopee-checkout-wrapper .jt-checkout-review-table ul#shipping_method {
+    margin-top: 12px;
+}
+
+.jt-shopee-checkout-wrapper .jt-checkout-review-table ul#shipping_method li {
+    border: 1px solid var(--color-border);
+    background: var(--color-white);
+    border-radius: var(--radius-md);
+    padding: 12px 16px;
+    transition: all var(--transition-fast);
+}
+
+.jt-shopee-checkout-wrapper .jt-checkout-review-table ul#shipping_method li:hover {
+    border-color: var(--color-secondary);
+    background: #FAFCFA;
+}
+
+.jt-shopee-checkout-wrapper .jt-checkout-review-table ul#shipping_method li:has(input:checked) {
+    border-color: var(--color-primary);
+    background: #F4FAF6;
+    box-shadow: 0 0 0 1px var(--color-primary);
+}
+
+.jt-shopee-checkout-wrapper .jt-checkout-review-table ul#shipping_method label {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* Mobile Styling Overrides */
+@media (max-width: 640px) {
+    .jt-shopee-checkout-wrapper .jt-checkout-review-table {
+        border: none;
+        border-radius: 0;
+        background: transparent;
+    }
+    
+    .jt-shopee-checkout-wrapper .jt-checkout-review-table thead {
+        display: none !important;
+    }
+    
+    .jt-shopee-checkout-wrapper .jt-checkout-review-table tbody {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .jt-shopee-checkout-wrapper .jt-checkout-review-table tbody tr {
+        display: block;
+        background: var(--color-white);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-lg);
+        padding: 16px;
+        margin-bottom: 0;
+    }
+    
+    .jt-shopee-checkout-wrapper .jt-checkout-review-table tbody td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 0;
+        border-bottom: 1px dashed var(--color-border);
+    }
+    
+    .jt-shopee-checkout-wrapper .jt-checkout-review-table tbody td:last-child {
+        border-bottom: none;
+    }
+    
+    .jt-shopee-checkout-wrapper .jt-checkout-review-table tbody td.product-name {
+        display: block;
+        border-bottom: 1px solid var(--color-border);
+        padding-bottom: 12px;
+        margin-bottom: 4px;
+    }
+    
+    .jt-shopee-checkout-wrapper .jt-checkout-review-table tbody td::before {
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--color-text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    
+    .jt-shopee-checkout-wrapper .jt-checkout-review-table tbody td.product-price::before {
+        content: "Harga Satuan";
+    }
+    
+    .jt-shopee-checkout-wrapper .jt-checkout-review-table tbody td.product-quantity::before {
+        content: "Jumlah";
+    }
+    
+    .jt-shopee-checkout-wrapper .jt-checkout-review-table tbody td.product-total::before {
+        content: "Subtotal";
+    }
+    
+    .jt-shopee-checkout-wrapper .jt-checkout-review-table tfoot {
+        display: block;
+        background: var(--color-white);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-lg);
+        margin-top: 16px;
+        padding: 0;
+        overflow: hidden;
+    }
+    
+    .jt-shopee-checkout-wrapper .jt-checkout-review-table tfoot tr {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 16px;
+        border-bottom: 1px solid var(--color-border);
+    }
+    
+    .jt-shopee-checkout-wrapper .jt-checkout-review-table tfoot tr:last-child {
+        border-bottom: none;
+    }
+    
+    .jt-shopee-checkout-wrapper .jt-checkout-review-table tfoot tr td,
+    .jt-shopee-checkout-wrapper .jt-checkout-review-table tfoot tr th {
+        padding: 0;
+        border: none;
+        background: transparent !important;
+    }
+    
+    .jt-shopee-checkout-wrapper .jt-checkout-review-table tfoot th {
+        text-align: left;
+    }
+    
+    .jt-shopee-checkout-wrapper .jt-checkout-review-table ul#shipping_method li {
+        max-width: 100%;
+    }
+}
+

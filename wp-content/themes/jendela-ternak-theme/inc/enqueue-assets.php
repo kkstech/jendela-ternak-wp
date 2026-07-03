@@ -24,6 +24,14 @@ function jt_enqueue_assets() {
         null
     );
 
+    // Font Awesome 6 Free CDN
+    wp_enqueue_style(
+        'font-awesome-6',
+        'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css',
+        [],
+        '6.6.0'
+    );
+
     // Theme style.css (CSS variables + base reset)
     wp_enqueue_style(
         'jt-style',
@@ -61,6 +69,14 @@ function jt_enqueue_assets() {
     wp_enqueue_script(
         'jt-cart-drawer',
         JT_THEME_URI . '/assets/js/cart-drawer.js',
+        [ 'jquery' ],
+        JT_THEME_VERSION,
+        true
+    );
+
+    wp_enqueue_script(
+        'jt-notices',
+        JT_THEME_URI . '/assets/js/notices.js',
         [ 'jquery' ],
         JT_THEME_VERSION,
         true
@@ -108,9 +124,35 @@ function jt_enqueue_assets() {
             true
         );
 
+    }
+
+    // Quantity stepper on single product pages and cart page
+    if ( is_singular( 'product' ) || is_cart() ) {
         wp_enqueue_script(
             'jt-qty-stepper',
             JT_THEME_URI . '/assets/js/qty-stepper.js',
+            [ 'jquery' ],
+            JT_THEME_VERSION,
+            true
+        );
+    }
+
+    // Wishlist script on Wishlist page and Account page
+    if ( is_page( 'wishlist' ) || is_account_page() ) {
+        wp_enqueue_script(
+            'jt-wishlist',
+            JT_THEME_URI . '/assets/js/wishlist.js',
+            [ 'jquery' ],
+            JT_THEME_VERSION,
+            true
+        );
+    }
+
+    // Checkout custom script
+    if ( is_checkout() && ! is_order_received_page() ) {
+        wp_enqueue_script(
+            'jt-checkout-custom',
+            JT_THEME_URI . '/assets/js/checkout-custom.js',
             [ 'jquery' ],
             JT_THEME_VERSION,
             true
@@ -123,10 +165,15 @@ function jt_enqueue_assets() {
         $alpine_deps[] = 'jt-bottom-nav';
         $alpine_deps[] = 'jt-variant-chips';
         $alpine_deps[] = 'jt-lightbox';
+    }
+    if ( is_singular( 'product' ) || is_cart() ) {
         $alpine_deps[] = 'jt-qty-stepper';
     }
     if ( $is_shop_page ) {
         $alpine_deps[] = 'jt-shop-filter';
+    }
+    if ( is_page( 'wishlist' ) || is_account_page() ) {
+        $alpine_deps[] = 'jt-wishlist';
     }
 
     wp_enqueue_script(
@@ -156,7 +203,7 @@ function jt_enqueue_assets() {
 // Add defer attribute to Alpine and theme scripts to prevent race conditions
 add_filter( 'script_loader_tag', 'jt_add_defer_attribute', 10, 2 );
 function jt_add_defer_attribute( $tag, $handle ) {
-    $handles_to_defer = [ 'alpinejs', 'jt-cart-drawer', 'jt-bottom-nav', 'jt-countdown', 'jt-variant-chips', 'jt-shop-filter', 'jt-lightbox', 'jt-qty-stepper' ];
+    $handles_to_defer = [ 'alpinejs', 'jt-cart-drawer', 'jt-bottom-nav', 'jt-countdown', 'jt-variant-chips', 'jt-shop-filter', 'jt-lightbox', 'jt-qty-stepper', 'jt-wishlist', 'jt-checkout-custom', 'jt-notices' ];
     if ( in_array( $handle, $handles_to_defer, true ) ) {
         if ( false === strpos( $tag, ' defer' ) ) {
             $tag = str_replace( ' src', ' defer src', $tag );
