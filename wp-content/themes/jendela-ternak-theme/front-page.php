@@ -70,7 +70,7 @@ $banner2_link = $settings['banner2_link'] ?? '#';
         <div class="w-full">
             <?php if ( ! empty( $banner1_img ) ) : ?>
                 <a href="<?php echo esc_url( $banner1_link ); ?>" class="block w-full rounded-2xl overflow-hidden shadow-sm hover:shadow-md hover:scale-[1.01] transition-all duration-300">
-                    <img src="<?php echo esc_url( $banner1_img ); ?>" alt="Promo Banner 1" class="w-full h-auto object-cover max-h-[220px]">
+                    <img src="<?php echo esc_url( $banner1_img ); ?>" alt="Promo Banner 1" class="w-full h-auto">
                 </a>
             <?php else : ?>
                 <a href="<?php echo esc_url( $banner1_link ); ?>" class="block w-full h-[130px] md:h-[180px] bg-gradient-to-r from-[#0B5E34] to-[#C8D400] rounded-2xl flex items-center justify-between px-8 md:px-16 text-white shadow-sm hover:shadow-md transition-all duration-300 transform hover:scale-[1.01] overflow-hidden relative">
@@ -135,7 +135,7 @@ $banner2_link = $settings['banner2_link'] ?? '#';
         <div class="w-full">
             <?php if ( ! empty( $banner2_img ) ) : ?>
                 <a href="<?php echo esc_url( $banner2_link ); ?>" class="block w-full rounded-2xl overflow-hidden shadow-sm hover:shadow-md hover:scale-[1.01] transition-all duration-300">
-                    <img src="<?php echo esc_url( $banner2_img ); ?>" alt="Promo Banner 2" class="w-full h-auto object-cover max-h-[220px]">
+                    <img src="<?php echo esc_url( $banner2_img ); ?>" alt="Promo Banner 2" class="w-full h-auto">
                 </a>
             <?php else : ?>
                 <a href="<?php echo esc_url( $banner2_link ); ?>" class="block w-full h-[130px] md:h-[180px] bg-gradient-to-r from-[#4CAF50] to-[#0B5E34] rounded-2xl flex items-center justify-between px-8 md:px-16 text-white shadow-sm hover:shadow-md transition-all duration-300 transform hover:scale-[1.01] overflow-hidden relative">
