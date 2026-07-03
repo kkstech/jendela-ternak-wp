@@ -480,32 +480,50 @@ function jt_render_theme_settings_page() {
             });
         });
 
-        // ─── Logo upload button ──────────────────────────────────────────────
-        document.querySelectorAll('.jt-upload-logo-btn').forEach(function(btn) {
-            btn.addEventListener('click', function() {
-                const input = document.getElementById('jt-logo-img-input');
-                const preview = document.getElementById('jt-logo-img-preview');
-                const uploader = wp.media({
-                    title: 'Pilih Logo Toko',
-                    button: { text: 'Gunakan Gambar' },
-                    multiple: false
-                }).on('select', function() {
-                    const att = uploader.state().get('selection').first().toJSON();
-                    input.value = att.url;
-                    // Update preview
-                    if (preview.tagName === 'IMG') {
-                        preview.src = att.url;
-                    } else {
-                        const img = document.createElement('img');
-                        img.src = att.url;
-                        img.alt = 'Logo';
-                        img.className = 'max-h-24 max-w-full object-contain';
-                        img.id = 'jt-logo-img-preview';
-                        preview.replaceWith(img);
-                    }
-                }).open();
-            });
+    // ─── Logo upload button ──────────────────────────────────────────────
+    document.querySelectorAll('.jt-upload-logo-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            const input = document.getElementById('jt-logo-img-input');
+            const preview = document.getElementById('jt-logo-img-preview');
+            const uploader = wp.media({
+                title: 'Pilih Logo Toko',
+                button: { text: 'Gunakan Gambar' },
+                multiple: false
+            }).on('select', function() {
+                const att = uploader.state().get('selection').first().toJSON();
+                input.value = att.url;
+                // Update preview
+                if (preview && preview.tagName === 'IMG') {
+                    preview.src = att.url;
+                } else if (preview) {
+                    const img = document.createElement('img');
+                    img.src = att.url;
+                    img.alt = 'Logo';
+                    img.className = 'max-h-24 max-w-full object-contain';
+                    img.id = 'jt-logo-img-preview';
+                    preview.replaceWith(img);
+                }
+            }).open();
         });
+    });
+
+    // ─── Banner upload buttons ───────────────────────────────────────────
+    document.querySelectorAll('.jt-upload-button').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            const input = this.previousElementSibling;
+            if (!input || input.tagName !== 'INPUT') return;
+            
+            const uploader = wp.media({
+                title: 'Pilih Gambar Banner',
+                button: { text: 'Gunakan Gambar' },
+                multiple: false
+            }).on('select', function() {
+                const att = uploader.state().get('selection').first().toJSON();
+                input.value = att.url;
+                input.dispatchEvent(new Event('input', { bubbles: true }));
+            }).open();
+        });
+    });
 
         // ─── Alpine.js Slider Manager ────────────────────────────────────────
         function jtSlider(initialSlides) {
