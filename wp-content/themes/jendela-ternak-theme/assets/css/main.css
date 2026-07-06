@@ -1853,6 +1853,8 @@
     padding-bottom: 8px;
     border-bottom: 1px solid var(--color-border);
     font-size: 12px;
+    flex-wrap: wrap;
+    gap: 8px;
 }
 .jt-account-order-body {
     display: flex;
@@ -1866,6 +1868,27 @@
     align-items: center;
     padding-top: 10px;
     border-top: 1px solid var(--color-border);
+}
+@media (max-width: 576px) {
+    .jt-account-order-footer {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+    .jt-account-order-footer > div:first-child {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .jt-account-order-footer > div:last-child {
+        display: flex;
+        justify-content: flex-end;
+        gap: 6px;
+        flex-wrap: wrap;
+    }
+    .jt-myaccount-content {
+        padding: 16px;
+    }
 }
 
 /* ==========================================================================
@@ -2164,6 +2187,8 @@
     border: 1px solid #f0f0f0;
     box-shadow: 0 2px 12px rgba(0,0,0,0.03);
     min-height: 450px;
+    min-width: 0;
+    max-width: 100%;
 }
 
 /* Welcome Card Dashboard */
