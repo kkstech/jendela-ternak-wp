@@ -4,3 +4,15 @@ wp-content/upgrade/
 wp-content/backups/
 db_local.sql
 *.log
+
+# Exclude backups & wpress
+wp-content/ai1wm-backups/
+*.wpress
+
+# Exclude plugins
+wp-content/plugins/
+
+# Exclude DS_Store
+.DS_Store
+**/.DS_Store
+

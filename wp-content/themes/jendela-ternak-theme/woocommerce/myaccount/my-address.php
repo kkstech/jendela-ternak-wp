@@ -4,6 +4,7 @@
  * Override My Account addresses page to display multiple saved shipping addresses.
  *
  * @package JendelaTernakMalang
+ * @version 9.3.0
  */
 
 defined( 'ABSPATH' ) || exit;

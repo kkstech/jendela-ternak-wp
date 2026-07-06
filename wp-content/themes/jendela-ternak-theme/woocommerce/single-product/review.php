@@ -4,6 +4,7 @@
  * Custom review card template for each review comment.
  *
  * @package JendelaTernakMalang
+ * @version 2.6.0
  */
 
 defined( 'ABSPATH' ) || exit;

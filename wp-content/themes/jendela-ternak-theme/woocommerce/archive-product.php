@@ -4,6 +4,7 @@
  * Custom WooCommerce Catalog page layout with desktop sidebar and mobile filter drawer.
  *
  * @package JendelaTernakMalang
+ * @version 8.6.0
  */
 
 defined( 'ABSPATH' ) || exit;

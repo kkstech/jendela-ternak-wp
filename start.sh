@@ -29,7 +29,7 @@ echo "👉 Access WordPress at: http://127.0.0.1:$PORT"
 echo "👉 Stop the server by pressing: Ctrl+C"
 echo ""
 
-# Start the built-in server WITH router.php for pretty permalink support.
+# Start the built-in server WITH router.php for pretty permalink support and custom PHP settings.
 # router.php mimics Apache mod_rewrite so URLs like /halaman-saya work
 # instead of /index.php/halaman-saya
-php -S 127.0.0.1:$PORT router.php
+php -d upload_max_filesize=128M -d post_max_size=128M -d memory_limit=512M -S 127.0.0.1:$PORT router.php

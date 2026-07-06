@@ -4,6 +4,7 @@
  * Customized My Account Orders dashboard template with horizontal status filter tabs and card list layout.
  *
  * @package JendelaTernakMalang
+ * @version 9.5.0
  */
 
 defined( 'ABSPATH' ) || exit;

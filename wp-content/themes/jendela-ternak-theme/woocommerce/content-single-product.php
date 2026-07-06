@@ -5,6 +5,7 @@
  * Enhanced: Lightbox, Stock Badge, Qty Stepper, Share Strip, Collapsible Desc, Spec Icons, Review Redesign
  *
  * @package JendelaTernakMalang
+ * @version 3.6.0
  */
 
 defined( 'ABSPATH' ) || exit;

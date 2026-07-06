@@ -4,6 +4,7 @@
  * Override WooCommerce cart template with custom branded layout.
  *
  * @package JendelaTernakMalang
+ * @version 10.8.0
  */
 defined( 'ABSPATH' ) || exit;
 

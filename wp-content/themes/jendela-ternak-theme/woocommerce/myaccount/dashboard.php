@@ -4,6 +4,7 @@
  * Customized My Account Dashboard landing page with user greeting, Shopee-style order status counts, and action cards.
  *
  * @package JendelaTernakMalang
+ * @version 4.4.0
  */
 
 defined( 'ABSPATH' ) || exit;

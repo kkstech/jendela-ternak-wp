@@ -5,7 +5,7 @@
  * This template can be overridden by copying it to yourtheme/woocommerce/notices/notice.php.
  *
  * @package WooCommerce\Templates
- * @version 8.6.0
+ * @version 10.4.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

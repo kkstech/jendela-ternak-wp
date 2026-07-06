@@ -4,6 +4,7 @@
  * Override the main My Account page to display a split Shopee-style sidebar layout.
  *
  * @package JendelaTernakMalang
+ * @version 3.5.0
  */
 
 defined( 'ABSPATH' ) || exit;

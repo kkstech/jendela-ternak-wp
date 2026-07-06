@@ -4,6 +4,7 @@
  * Customized checkout Thank You (Order Received) page template.
  *
  * @package JendelaTernakMalang
+ * @version 8.1.0
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -16,6 +17,8 @@ if ( ! $order ) {
     <?php
     return;
 }
+
+do_action( 'woocommerce_before_thankyou', $order->get_id() );
 
 $order_id       = $order->get_id();
 $order_number   = $order->get_order_number();
@@ -85,6 +88,8 @@ $wa_url         = 'https://wa.me/' . esc_attr( $wa_number ) . '?text=' . $wa_msg
             </p>
         <?php endif; ?>
     </div>
+
+    <?php do_action( 'woocommerce_thankyou', $order->get_id() ); ?>
 
     <!-- Biteship Shipping details -->
     <?php

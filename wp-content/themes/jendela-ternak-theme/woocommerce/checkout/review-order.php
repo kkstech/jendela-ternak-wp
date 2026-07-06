@@ -5,6 +5,7 @@
  * Displays product thumbnail images and clean Shopee-style table headers.
  *
  * @package JendelaTernakMalang
+ * @version 5.2.0
  */
 
 defined( 'ABSPATH' ) || exit;

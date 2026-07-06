@@ -4,6 +4,7 @@
  * Override WooCommerce My Account menu list to display vertical lists with matching emojis.
  *
  * @package JendelaTernakMalang
+ * @version 9.3.0
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -42,7 +43,7 @@ do_action( 'woocommerce_before_account_navigation' );
             }
         ?>
             <li class="jt-myaccount-navigation__item <?php echo esc_attr( $class_string ); ?>">
-                <a href="<?php echo $url; ?>" class="jt-myaccount-navigation__link">
+                <a href="<?php echo $url; ?>" class="jt-myaccount-navigation__link" <?php echo wc_is_current_account_menu_item( $endpoint ) ? 'aria-current="page"' : ''; ?>>
                     <span class="jt-myaccount-navigation__icon"><i class="<?php echo esc_attr( $icon_class ); ?>"></i></span>
                     <span class="jt-myaccount-navigation__label"><?php echo esc_html( $label ); ?></span>
                 </a>

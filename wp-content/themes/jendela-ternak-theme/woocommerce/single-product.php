@@ -5,6 +5,7 @@
  * Copied from: woocommerce/templates/single-product.php
  *
  * @package JendelaTernakMalang
+ * @version 1.6.4
  */
 
 defined( 'ABSPATH' ) || exit;
