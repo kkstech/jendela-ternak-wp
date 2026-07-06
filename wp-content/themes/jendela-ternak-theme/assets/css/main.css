@@ -4231,7 +4231,8 @@
     /* Hide specific desktop icons on mobile */
     #jt-catalog-icon,
     #jt-wishlist-icon,
-    #jt-account-icon {
+    #jt-account-icon,
+    .jt-header__social-icon {
         display: none !important;
     }
     

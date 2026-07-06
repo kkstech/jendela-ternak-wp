@@ -12,10 +12,15 @@ get_header();
 
 // Retrieve custom options
 $settings     = get_option( 'jt_theme_settings', array() );
-$banner1_img  = $settings['banner1_img'] ?? '';
+$banner1_img  = $settings['banner1_img']  ?? '';
 $banner1_link = $settings['banner1_link'] ?? '#';
-$banner2_img  = $settings['banner2_img'] ?? '';
+$banner2_img  = $settings['banner2_img']  ?? '';
 $banner2_link = $settings['banner2_link'] ?? '#';
+
+// Dynamic section settings
+$section_title_bestseller = jt_get_setting( 'section_title_bestseller', 'Produk Terlaris' );
+$section_title_offers     = jt_get_setting( 'section_title_offers',     'Penawaran Terbaik' );
+$show_banners             = jt_get_setting( 'toggle_banners', '1' ) === '1';
 ?>
 
 <main id="main-content" class="min-h-screen bg-gray-50/50 pb-16" aria-label="<?php esc_attr_e( 'Halaman Utama', 'jendela-ternak' ); ?>">
@@ -34,7 +39,7 @@ $banner2_link = $settings['banner2_link'] ?? '#';
                 <div class="flex items-center gap-2">
                     <span class="text-2xl">🔥</span>
                     <h2 class="text-lg md:text-xl font-extrabold text-[#0B5E34]" id="jt-best-sellers-heading">
-                        <?php esc_html_e( 'Produk Terlaris', 'jendela-ternak' ); ?>
+                        <?php echo esc_html( $section_title_bestseller ); ?>
                     </h2>
                 </div>
                 <a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>" class="text-xs font-bold text-[#0B5E34] hover:underline">
@@ -67,6 +72,7 @@ $banner2_link = $settings['banner2_link'] ?? '#';
         </section>
 
         <!-- 2. Banner Image 1 -->
+        <?php if ( $show_banners ) : ?>
         <div class="w-full">
             <?php if ( ! empty( $banner1_img ) ) : ?>
                 <a href="<?php echo esc_url( $banner1_link ); ?>" class="block w-full rounded-2xl overflow-hidden shadow-sm hover:shadow-md hover:scale-[1.01] transition-all duration-300">
@@ -84,6 +90,7 @@ $banner2_link = $settings['banner2_link'] ?? '#';
                 </a>
             <?php endif; ?>
         </div>
+        <?php endif; // show_banners ?>
 
         <!-- 3. Section: Penawaran Terbaik -->
         <section aria-labelledby="jt-best-offers-heading" class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
@@ -91,7 +98,7 @@ $banner2_link = $settings['banner2_link'] ?? '#';
                 <div class="flex items-center gap-2">
                     <span class="text-2xl">⚡</span>
                     <h2 class="text-lg md:text-xl font-extrabold text-[#0B5E34]" id="jt-best-offers-heading">
-                        <?php esc_html_e( 'Penawaran Terbaik', 'jendela-ternak' ); ?>
+                        <?php echo esc_html( $section_title_offers ); ?>
                     </h2>
                 </div>
                 <a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>" class="text-xs font-bold text-[#0B5E34] hover:underline">
@@ -132,6 +139,7 @@ $banner2_link = $settings['banner2_link'] ?? '#';
         </section>
 
         <!-- 4. Banner Image 2 -->
+        <?php if ( $show_banners ) : ?>
         <div class="w-full">
             <?php if ( ! empty( $banner2_img ) ) : ?>
                 <a href="<?php echo esc_url( $banner2_link ); ?>" class="block w-full rounded-2xl overflow-hidden shadow-sm hover:shadow-md hover:scale-[1.01] transition-all duration-300">
@@ -149,6 +157,7 @@ $banner2_link = $settings['banner2_link'] ?? '#';
                 </a>
             <?php endif; ?>
         </div>
+        <?php endif; // show_banners ?>
 
     </div><!-- .jt-container -->
 

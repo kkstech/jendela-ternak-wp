@@ -824,3 +824,54 @@ button { cursor: pointer; border: none; background: none; font-family: var(--fon
     }
 }
 
+/* ==========================================================================
+   Announcement Bar
+   ========================================================================== */
+.jt-announcement-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 8px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    background: var(--announcement-bg, var(--color-accent));
+    color: var(--announcement-color, #000000);
+    min-height: 36px;
+    width: 100%;
+}
+
+.jt-announcement-bar__link {
+    color: inherit;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+}
+
+.jt-announcement-bar__link:hover {
+    text-decoration: underline;
+    opacity: 0.9;
+}
+
+/* ==========================================================================
+   Sticky Header
+   ========================================================================== */
+.jt-header--sticky {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
+}
+
+/* ==========================================================================
+   Dynamic Font Integration (from admin panel Google Fonts)
+   ========================================================================== */
+body {
+    font-family: var(--font-body, var(--font-sans));
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading, var(--font-sans));
+}
+

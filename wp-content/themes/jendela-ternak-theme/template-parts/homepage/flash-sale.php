@@ -7,6 +7,11 @@
  */
 defined( 'ABSPATH' ) || exit;
 
+// Respect the Flash Sale toggle from admin settings
+if ( jt_get_setting( 'toggle_flash_sale', '1' ) !== '1' ) {
+    return;
+}
+
 $end_time = jt_get_setting( 'flash_sale_end', '' );
 
 // Get on-sale products
