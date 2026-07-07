@@ -68,7 +68,7 @@ if ( empty( $_footer_links ) ) {
                     <?php endif;
                     if ( $social_tiktok ) : ?>
                         <a href="<?php echo esc_url( $social_tiktok ); ?>" target="_blank" rel="noopener noreferrer" aria-label="TikTok" style="width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.8);transition:background 0.2s;" onmouseenter="this.style.background='rgba(255,255,255,0.25)'" onmouseleave="this.style.background='rgba(255,255,255,0.1)'">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.17-2.86-.74-3.99-1.72-.08-.07-.17-.17-.25-.25v6.07c0 4.19-2.82 8.35-7.46 8.86-5.23.58-10.11-3.37-10.19-8.63-.09-5.46 4.79-10.42 10.23-9.87.83.08 1.65.31 2.4.67V2.62c-1.39-.46-2.88-.36-4.2.27-.47.23-.88.54-1.25.9-.09.08-.18.17-.26.27v4.03c1.39-.77 3.03-.89 4.5-.32.61.24 1.15.63 1.58 1.12v-9.1c.14.07.28.14.42.21z"/></svg>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1.04-.1z"/></svg>
                         </a>
                     <?php endif;
                     if ( $social_shopee ) : ?>
@@ -83,7 +83,7 @@ if ( empty( $_footer_links ) ) {
                     <?php endif;
                     if ( $social_lazada ) : ?>
                         <a href="<?php echo esc_url( $social_lazada ); ?>" target="_blank" rel="noopener noreferrer" aria-label="Lazada" style="width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.8);transition:background 0.2s;" onmouseenter="this.style.background='rgba(255,255,255,0.25)'" onmouseleave="this.style.background='rgba(255,255,255,0.1)'">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+                            <svg width="18" height="18" viewBox="0 0 68 56" fill="currentColor"><path d="M33.74 54.72c-.48 0-.95-.12-1.37-.36C28.81 52.3 2.4 35.74 1.4 35.24c-.75-.35-1.27-1.08-1.36-1.91V10.11c-.02-.87.41-1.69 1.13-2.16L1.37 7.84C3.92 6.26 12.47 1.04 13.82.29c.31-.19.67-.29 1.03-.29.34 0 .67.09.97.25 0 0 11.96 7.8 13.8 8.5 1.28.59 2.68.88 4.1.86 1.6.03 3.18-.35 4.59-1.12C40.09 7.54 51.52.29 51.64.29c.29-.18.62-.27.96-.27.36 0 .71.1 1.02.29 1.56.86 12.16 7.35 12.61 7.63.75.45 1.2 1.26 1.19 2.13v23.22c-.08.83-.6 1.56-1.36 1.91-1 0-27.32 17.1-30.95 19.12-.42.25-.89.38-1.37.38z" /></svg>
                         </a>
                     <?php endif;
                     if ( $social_facebook ) : ?>
@@ -93,14 +93,17 @@ if ( empty( $_footer_links ) ) {
                     <?php endif;
 
                     if ( $wa_url ) : ?>
-                        <a href="<?php echo esc_url( $wa_url ); ?>" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" style="width:36px;height:36px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;color:#fff;">
-                            <svg width="18" height="18" viewBox="0 0 32 32" fill="currentColor"><path d="M16 0C7.163 0 0 7.163 0 16c0 2.82.737 5.47 2.028 7.773L0 32l8.467-2.018A15.943 15.943 0 0016 32c8.837 0 16-7.163 16-16S24.837 0 16 0zm8.27 22.27c-.34.96-2.01 1.84-2.76 1.96-.75.12-1.68.17-2.71-.17-1.03-.34-2.35-.8-4.03-1.54-3.39-1.5-5.59-4.89-5.76-5.12-.17-.23-1.38-1.84-1.38-3.51s.87-2.49 1.18-2.83c.31-.34.67-.43.9-.43s.45.004.64.012c.2.008.47-.076.74.57.28.66.95 2.31 1.03 2.48.08.17.13.37.03.59-.1.22-.15.35-.29.54-.14.19-.3.43-.43.57-.14.14-.28.3-.12.59.16.29.72 1.19 1.55 1.93 1.07.95 1.97 1.25 2.26 1.39.29.14.46.12.63-.07.17-.19.73-.85.93-1.14.2-.29.4-.24.67-.14.27.1 1.72.81 2.01.96.29.15.48.22.55.34.07.12.07.7-.27 1.66z"/></svg>
+                        <a href="<?php echo esc_url( $wa_url ); ?>" target="_blank" rel="noopener noreferrer" aria-label="Customer Service" style="width:36px;height:36px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;color:#fff;">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M3 18v-6a9 9 0 0 1 18 0v6"/>
+                                <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/>
+                            </svg>
                         </a>
                     <?php endif; ?>
                 </div>
                 <!-- WA Hours -->
                 <p style="font-size:12px;color:rgba(255,255,255,0.5);margin-top:12px;">
-                    <?php esc_html_e( 'CS WhatsApp: 08.00–17.00 WIB', 'jendela-ternak' ); ?>
+                    <?php esc_html_e( 'Customer Service: 08.00–17.00 WIB', 'jendela-ternak' ); ?>
                 </p>
             </div>
 

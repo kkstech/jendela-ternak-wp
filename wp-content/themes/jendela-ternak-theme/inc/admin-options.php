@@ -10,6 +10,61 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
+ * Helper to normalize local development URLs (127.0.0.1:8000, localhost, etc)
+ * to the current live site URL dynamically. Prevents Mixed Content and 404 image errors.
+ */
+function jt_normalize_theme_setting_url( $value ) {
+    if ( ! is_string( $value ) || empty( $value ) ) {
+        return $value;
+    }
+
+    $local_patterns = array(
+        'http://127.0.0.1:8000',
+        'http://127.0.0.1',
+        'http://localhost:8000',
+        'http://localhost',
+    );
+
+    // Get the current live site URL
+    $current_home_url = rtrim( home_url(), '/' );
+
+    // Replace local dev origin with current live site origin
+    foreach ( $local_patterns as $pattern ) {
+        if ( strpos( $value, $pattern ) !== false ) {
+            $value = str_replace( $pattern, $current_home_url, $value );
+            break;
+        }
+    }
+
+    // Upgrade http → https when on HTTPS and the URL points to the same host
+    if ( is_ssl() ) {
+        $host = isset( $_SERVER['HTTP_HOST'] ) ? $_SERVER['HTTP_HOST'] : '';
+        if ( $host && strpos( $value, 'http://' . $host ) === 0 ) {
+            $value = str_replace( 'http://' . $host, 'https://' . $host, $value );
+        }
+    }
+
+    return $value;
+}
+
+/**
+ * Helper to recursively normalize URLs in array settings (e.g. slides array).
+ */
+function jt_normalize_theme_setting_array_urls( $array ) {
+    if ( ! is_array( $array ) ) {
+        return $array;
+    }
+    foreach ( $array as $key => $val ) {
+        if ( is_string( $val ) ) {
+            $array[ $key ] = jt_normalize_theme_setting_url( $val );
+        } elseif ( is_array( $val ) ) {
+            $array[ $key ] = jt_normalize_theme_setting_array_urls( $val );
+        }
+    }
+    return $array;
+}
+
+/**
  * Central helper — get one theme setting by key.
  * All theme files must use this instead of get_theme_mod().
  *
@@ -22,7 +77,15 @@ function jt_get_setting( string $key, $default = null ) {
     if ( null === $cache ) {
         $cache = get_option( 'jt_theme_settings', array() );
     }
-    return isset( $cache[ $key ] ) && $cache[ $key ] !== '' ? $cache[ $key ] : $default;
+    $value = isset( $cache[ $key ] ) && $cache[ $key ] !== '' ? $cache[ $key ] : $default;
+    
+    if ( is_string( $value ) && ! empty( $value ) ) {
+        $value = jt_normalize_theme_setting_url( $value );
+    } elseif ( is_array( $value ) ) {
+        $value = jt_normalize_theme_setting_array_urls( $value );
+    }
+    
+    return $value;
 }
 
 // Register admin menu
