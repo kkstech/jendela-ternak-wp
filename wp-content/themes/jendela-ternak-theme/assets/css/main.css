@@ -280,9 +280,41 @@
     display: flex;
     flex-direction: column;
     box-shadow: -4px 0 24px rgba(0,0,0,0.15);
-    transition: transform var(--transition-slow);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .jt-cart-drawer[x-cloak] { display: none !important; }
+
+/* Drawer Slide Transitions */
+.jt-drawer-slide-enter-active {
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+.jt-drawer-slide-leave-active {
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+.jt-drawer-slide-enter-start,
+.jt-drawer-slide-leave-end {
+    transform: translateX(100%) !important;
+}
+.jt-drawer-slide-enter-end,
+.jt-drawer-slide-leave-start {
+    transform: translateX(0) !important;
+}
+
+/* Overlay Fade Transitions */
+.jt-fade-enter-active {
+    transition: opacity 0.3s ease-out !important;
+}
+.jt-fade-leave-active {
+    transition: opacity 0.2s ease-in !important;
+}
+.jt-fade-enter-start,
+.jt-fade-leave-end {
+    opacity: 0 !important;
+}
+.jt-fade-enter-end,
+.jt-fade-leave-start {
+    opacity: 1 !important;
+}
 
 .jt-cart-drawer__header {
     display: flex;

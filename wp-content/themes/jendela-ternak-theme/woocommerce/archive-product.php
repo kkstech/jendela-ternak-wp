@@ -111,12 +111,12 @@ remove_action( 'woocommerce_after_shop_loop', 'woocommerce_pagination', 10 );
         x-cloak 
         class="jt-cart-overlay" 
         @click="mobileFilterOpen = false"
-        x-transition:enter="transition ease-out duration-300"
-        x-transition:enter-start="opacity-0"
-        x-transition:enter-end="opacity-100"
-        x-transition:leave="transition ease-in duration-200"
-        x-transition:leave-start="opacity-100"
-        x-transition:leave-end="opacity-0"
+        x-transition:enter="jt-fade-enter-active"
+        x-transition:enter-start="jt-fade-enter-start"
+        x-transition:enter-end="jt-fade-enter-end"
+        x-transition:leave="jt-fade-leave-active"
+        x-transition:leave-start="jt-fade-leave-start"
+        x-transition:leave-end="jt-fade-leave-end"
         aria-hidden="true"
     ></div>
 
@@ -126,17 +126,15 @@ remove_action( 'woocommerce_after_shop_loop', 'woocommerce_pagination', 10 );
         class="jt-cart-drawer" 
         x-show="mobileFilterOpen" 
         x-cloak
-        x-transition:enter="transition ease-out duration-300"
-        x-transition:enter-start="translate-x-full"
-        x-transition:enter-end="translate-x-0"
-        x-transition:leave="transition ease-in duration-200"
-        x-transition:leave-start="translate-x-0"
-        x-transition:leave-end="translate-x-full"
+        x-transition:enter="jt-drawer-slide-enter-active"
+        x-transition:enter-start="jt-drawer-slide-enter-start"
+        x-transition:enter-end="jt-drawer-slide-enter-end"
+        x-transition:leave="jt-drawer-slide-leave-active"
+        x-transition:leave-start="jt-drawer-slide-leave-start"
+        x-transition:leave-end="jt-drawer-slide-leave-end"
         role="dialog"
         aria-modal="true"
         aria-label="<?php esc_attr_e( 'Filter Produk Mobile', 'jendela-ternak' ); ?>"
-        style="transform: translateX(100%);"
-        :style="mobileFilterOpen ? 'transform: translateX(0)' : 'transform: translateX(100%)'"
     >
         <div class="jt-cart-drawer__header">
             <h2>🔍 <?php esc_html_e( 'Filter Produk', 'jendela-ternak' ); ?></h2>

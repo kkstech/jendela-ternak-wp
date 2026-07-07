@@ -31,7 +31,7 @@ $show_banners             = jt_get_setting( 'toggle_banners', '1' ) === '1';
     </div>
 
     <!-- Main Content Container -->
-    <div class="max-w-7xl mx-auto px-4 mt-12 space-y-12">
+    <div class="max-w-7xl mx-auto px-4 mt-6 md:mt-8 space-y-6 md:space-y-8">
 
         <!-- 1. Section: Produk Terlaris -->
         <section aria-labelledby="jt-best-sellers-heading" class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">

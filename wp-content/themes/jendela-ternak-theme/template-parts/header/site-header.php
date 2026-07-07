@@ -248,12 +248,12 @@ $_jt_tagline = jt_get_setting( 'logo_tagline_override', '' );
         x-cloak
         class="jt-cart-overlay"
         @click="close()"
-        x-transition:enter="transition ease-out duration-300"
-        x-transition:enter-start="opacity-0"
-        x-transition:enter-end="opacity-100"
-        x-transition:leave="transition ease-in duration-200"
-        x-transition:leave-start="opacity-100"
-        x-transition:leave-end="opacity-0"
+        x-transition:enter="jt-fade-enter-active"
+        x-transition:enter-start="jt-fade-enter-start"
+        x-transition:enter-end="jt-fade-enter-end"
+        x-transition:leave="jt-fade-leave-active"
+        x-transition:leave-start="jt-fade-leave-start"
+        x-transition:leave-end="jt-fade-leave-end"
         aria-hidden="true"
     ></div>
 
@@ -263,17 +263,15 @@ $_jt_tagline = jt_get_setting( 'logo_tagline_override', '' );
         class="jt-cart-drawer"
         x-show="open"
         x-cloak
-        x-transition:enter="transition ease-out duration-300"
-        x-transition:enter-start="translate-x-full"
-        x-transition:enter-end="translate-x-0"
-        x-transition:leave="transition ease-in duration-200"
-        x-transition:leave-start="translate-x-0"
-        x-transition:leave-end="translate-x-full"
+        x-transition:enter="jt-drawer-slide-enter-active"
+        x-transition:enter-start="jt-drawer-slide-enter-start"
+        x-transition:enter-end="jt-drawer-slide-enter-end"
+        x-transition:leave="jt-drawer-slide-leave-active"
+        x-transition:leave-start="jt-drawer-slide-leave-start"
+        x-transition:leave-end="jt-drawer-slide-leave-end"
         role="dialog"
         aria-modal="true"
         aria-label="<?php esc_attr_e( 'Keranjang Belanja', 'jendela-ternak' ); ?>"
-        style="transform: translateX(100%);"
-        :style="open ? 'transform: translateX(0)' : 'transform: translateX(100%)'"
     >
         <!-- Drawer Header -->
         <div class="jt-cart-drawer__header">
@@ -296,12 +294,12 @@ $_jt_tagline = jt_get_setting( 'logo_tagline_override', '' );
         x-cloak
         class="jt-cart-overlay"
         @click="closeMobileMenu()"
-        x-transition:enter="transition ease-out duration-300"
-        x-transition:enter-start="opacity-0"
-        x-transition:enter-end="opacity-100"
-        x-transition:leave="transition ease-in duration-200"
-        x-transition:leave-start="opacity-100"
-        x-transition:leave-end="opacity-0"
+        x-transition:enter="jt-fade-enter-active"
+        x-transition:enter-start="jt-fade-enter-start"
+        x-transition:enter-end="jt-fade-enter-end"
+        x-transition:leave="jt-fade-leave-active"
+        x-transition:leave-start="jt-fade-leave-start"
+        x-transition:leave-end="jt-fade-leave-end"
         aria-hidden="true"
     ></div>
 
@@ -311,17 +309,15 @@ $_jt_tagline = jt_get_setting( 'logo_tagline_override', '' );
         class="jt-cart-drawer jt-mobile-menu"
         x-show="mobileMenuOpen"
         x-cloak
-        x-transition:enter="transition ease-out duration-300"
-        x-transition:enter-start="translate-x-full"
-        x-transition:enter-end="translate-x-0"
-        x-transition:leave="transition ease-in duration-200"
-        x-transition:leave-start="translate-x-0"
-        x-transition:leave-end="translate-x-full"
+        x-transition:enter="jt-drawer-slide-enter-active"
+        x-transition:enter-start="jt-drawer-slide-enter-start"
+        x-transition:enter-end="jt-drawer-slide-enter-end"
+        x-transition:leave="jt-drawer-slide-leave-active"
+        x-transition:leave-start="jt-drawer-slide-leave-start"
+        x-transition:leave-end="jt-drawer-slide-leave-end"
         role="dialog"
         aria-modal="true"
         aria-label="<?php esc_attr_e( 'Menu Navigasi', 'jendela-ternak' ); ?>"
-        style="transform: translateX(100%);"
-        :style="mobileMenuOpen ? 'transform: translateX(0)' : 'transform: translateX(100%)'"
     >
         <!-- Drawer Header -->
         <div class="jt-cart-drawer__header">
