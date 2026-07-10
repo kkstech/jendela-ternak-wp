@@ -21,3 +21,4 @@ require_once JT_THEME_DIR . '/inc/saved-addresses.php';
 require_once JT_THEME_DIR . '/inc/customizer.php';
 require_once JT_THEME_DIR . '/inc/admin-options.php';
 require_once JT_THEME_DIR . '/inc/elementor-support.php';
+require_once JT_THEME_DIR . '/inc/shortcodes.php';

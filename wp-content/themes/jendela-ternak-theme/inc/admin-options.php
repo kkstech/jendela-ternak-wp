@@ -648,6 +648,15 @@ function jt_render_theme_settings_page() {
             ════════════════════════════════════════════════════════ -->
             <div x-show="tab === 'homepage'" class="space-y-8" style="display:none;">
 
+                <!-- Shortcode Info -->
+                <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-4 flex gap-3 shadow-sm">
+                    <div class="text-emerald-700 text-xl"><i class="fa-solid fa-code"></i></div>
+                    <div>
+                        <h4 class="text-sm font-bold text-emerald-900">Shortcode Halaman Beranda</h4>
+                        <p class="text-xs text-emerald-700 mt-1">Anda sekarang dapat menggunakan shortcode <code class="bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded font-mono font-semibold">[jt_homepage]</code> di halaman mana saja (misalnya halaman <strong>Home</strong>) untuk merender konten beranda default ini.</p>
+                    </div>
+                </div>
+
                 <!-- Judul Seksi -->
                 <div>
                     <div class="border-b border-gray-100 pb-3 mb-6">

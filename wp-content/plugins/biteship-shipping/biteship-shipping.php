@@ -3,7 +3,7 @@
 /**
  * Plugin Name: Biteship Shipping
  * Description: Integrate Biteship shipping services with your WooCommerce store.
- * Version: 1.2.2
+ * Version: 1.2.3
  * Author: Biteship
  * Author URI: https://biteship.com
  * Text Domain: biteship-shipping
@@ -26,7 +26,7 @@ if (!defined("ABSPATH")) {
 
 if (in_array("woocommerce/woocommerce.php", apply_filters("active_plugins", get_option("active_plugins")))) {
     // Define plugin constants.
-    define("BITESHIP_SHIPPING_VERSION", "1.2.2");
+    define("BITESHIP_SHIPPING_VERSION", "1.2.3");
     define("BITESHIP_SHIPPING_FILE", __FILE__);
     define("BITESHIP_SHIPPING_PATH", plugin_dir_path(__FILE__));
     define("BITESHIP_SHIPPING_URL", plugin_dir_url(__FILE__));

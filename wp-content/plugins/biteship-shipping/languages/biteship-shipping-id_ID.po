@@ -60,6 +60,3 @@ msgstr "Tidak Diketahui"
 
 msgid "Order #%d cannot be shipped because it is not in progress."
 msgstr "Order #%d hanya dapat dikirim apabila status 'Dalam proses'"
-
-msgid "The key that will be used when dealing with Biteship services. You can read how to generate one in <a href='https://biteship.com'>Biteship documentation</a>."
-msgstr "Kunci API yang akan digunakan untuk menggunakan layanan Biteship. Anda dapat mencari tau bagaimana mendapatkan kunci di <a href='https://biteship.com'>artikel berikut</a>."

@@ -27,10 +27,10 @@ if (class_exists("WC_Integration")) {
         {
             $this->form_fields = [
                 "api_key" => [
-                    "title" => __("API Key", "biteship-shipping"),
+                    "title" => __("Kunci WooCommerce", "biteship-shipping"),
                     "type" => "password",
                     "description" => __(
-                        "The key that will be used when dealing with Biteship services. You can read how to generate one in <a href='https://biteship.com'>Biteship documentation</a>.",
+                        "Kunci WooCommerce yang digunakan untuk menghubungkan toko Anda dengan layanan Biteship. Dapatkan Kunci WooCommerce di dashboard Biteship pada menu Integrations > WooCommerce.",
                         "biteship-shipping"
                     ),
                     "desc_tip" => false,
@@ -78,8 +78,11 @@ if (class_exists("WC_Integration")) {
 
             $info = $this->api->get_subscription_info($api_key);
 
-            if (empty($info)) {
-                WC_Admin_Settings::add_error(__("API Key is not valid.", "biteship-shipping"));
+            if (empty($info["success"])) {
+                $message = !empty($info["error"])
+                    ? $info["error"]
+                    : __("Kunci WooCommerce tidak valid.", "biteship-shipping");
+                WC_Admin_Settings::add_error($message);
                 $this->update_option("api_key", "");
                 $this->update_option("api_key_id", "");
                 $this->update_option("subscription_name", "");

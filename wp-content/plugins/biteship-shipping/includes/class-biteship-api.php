@@ -208,11 +208,25 @@ class Biteship_API
 
         $response = $this->make_request("/v1/woocommerce/plugins/validate_key", $args);
 
-        if (!is_array($response) || !$response["success"]) {
-            return;
+        if (is_wp_error($response)) {
+            return [
+                "success" => false,
+                "error" => __("Tidak dapat terhubung ke server Biteship. Silakan coba lagi.", "biteship-shipping"),
+            ];
+        }
+
+        if (!is_array($response) || empty($response["success"])) {
+            return [
+                "success" => false,
+                // Surface the backend's verbose message; fall back if absent.
+                "error" => (is_array($response) && !empty($response["error"]))
+                    ? $response["error"]
+                    : __("Kunci WooCommerce tidak valid.", "biteship-shipping"),
+            ];
         }
 
         return [
+            "success" => true,
             "id" => $response["data"]["id"],
             "subscription_type" => $response["data"]["type"],
             "subscription_period" => $response["data"]["subscriptionPeriod"],
