@@ -1,6 +1,6 @@
 services:
   wordpress:
-    image: ${GHCR_IMAGE:-ghcr.io/kkstech/jendela-ternak-wp}:${IMAGE_TAG:-latest}
+    image: ghcr.io/kkstech/jendela-ternak-wp:latest
     restart: unless-stopped
     ports:
       - "${APP_PORT:-80}:80"
