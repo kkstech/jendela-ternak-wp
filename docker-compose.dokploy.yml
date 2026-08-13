@@ -1,0 +1,19 @@
+services:
+  wordpress:
+    image: ${GHCR_IMAGE:-ghcr.io/owner/jendelaternak-wp}:${IMAGE_TAG:-latest}
+    restart: unless-stopped
+    ports:
+      - "${APP_PORT:-80}:80"
+    environment:
+      DB_HOST: ${DB_HOST}
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      WP_HOME: ${WP_HOME}
+      WP_SITEURL: ${WP_SITEURL}
+      WP_DEBUG: ${WP_DEBUG:-false}
+    volumes:
+      - wordpress_uploads:/var/www/html/wp-content/uploads
+
+volumes:
+  wordpress_uploads:
