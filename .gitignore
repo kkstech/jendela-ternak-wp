@@ -10,9 +10,6 @@ db_local.sql
 wp-content/ai1wm-backups/
 *.wpress
 
-# Exclude plugins
-wp-content/plugins/
-
 # Exclude DS_Store
 .DS_Store
 **/.DS_Store
