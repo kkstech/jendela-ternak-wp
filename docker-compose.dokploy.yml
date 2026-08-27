@@ -17,3 +17,4 @@ services:
 
 volumes:
   wordpress_uploads:
+    name: jendelaternak_wordpress_uploads
