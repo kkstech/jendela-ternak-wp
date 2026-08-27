@@ -149,7 +149,7 @@ function jt_enqueue_assets() {
     }
 
     // Checkout custom script
-    if ( is_checkout() && ! is_order_received_page() ) {
+    if ( is_checkout() && ! is_order_received_page() && ! is_checkout_pay_page() ) {
         wp_enqueue_script(
             'jt-checkout-custom',
             JT_THEME_URI . '/assets/js/checkout-custom.js',
@@ -223,4 +223,3 @@ function jt_admin_assets() {
         JT_THEME_VERSION
     );
 }
-

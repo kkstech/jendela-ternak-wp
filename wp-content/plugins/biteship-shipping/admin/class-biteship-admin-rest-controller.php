@@ -51,7 +51,7 @@ class Biteship_Admin_Rest_Controller
 
         $tracking_status = $order->get_meta(Biteship_Helper::meta_key("tracking_status"));
 
-        if (!empty($tracking_status) && !in_array($tracking_status, ["cancelled", "rejected", "returned"])) {
+        if (!empty($tracking_status) && !in_array($tracking_status, ["cancelled", "rejected", "returned", "courier_not_found"])) {
             return new WP_REST_Response(["message" => "Order already has active shipment."], 422);
         }
 
@@ -86,6 +86,10 @@ class Biteship_Admin_Rest_Controller
             if (Biteship_Helper::is_complete_status_on_delivered()) {
                 $order->update_status("completed");
             }
+        }
+
+        if ($tracking_status == "cancelled") {
+            $order->update_status("cancelled");
         }
 
         $order->update_meta_data(Biteship_Helper::meta_key("tracking_status"), $tracking_status);

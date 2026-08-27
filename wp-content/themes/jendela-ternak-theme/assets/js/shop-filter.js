@@ -32,6 +32,18 @@ window.jtShopFilter = function() {
         init() {
             this.initFromUrl();
 
+            // Pagination tetap memakai URL yang sama, tetapi diperbarui tanpa full reload.
+            const root = document.getElementById('jt-shop-layout-root');
+            root?.addEventListener('click', (event) => {
+                const link = event.target.closest('.jt-catalog-pagination a.page-numbers');
+                if (!link || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
+                    return;
+                }
+
+                event.preventDefault();
+                this.fetchProducts(link.href, true);
+            });
+
             // Handle back/forward browser navigation
             window.addEventListener('popstate', () => {
                 this.initFromUrl();

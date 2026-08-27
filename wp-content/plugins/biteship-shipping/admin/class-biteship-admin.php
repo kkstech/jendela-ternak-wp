@@ -294,7 +294,7 @@ class Biteship_Admin
 
             $tracking_status = $order->get_meta(Biteship_Helper::meta_key("tracking_status"));
 
-            if (!empty($tracking_status) && !in_array($tracking_status, ["cancelled", "returned", "rejected"])) {
+            if (!empty($tracking_status) && !in_array($tracking_status, ["cancelled", "returned", "rejected", "courier_not_found"])) {
                 $errors[] = [
                     "id" => $order_id,
                     /* translators: %d is the order's number */
@@ -404,7 +404,7 @@ class Biteship_Admin
 
         $tracking_status = $order->get_meta(Biteship_Helper::meta_key("tracking_status"));
 
-        if (!empty($tracking_status) && !in_array($tracking_status, ["cancelled", "returned", "rejected"])) {
+        if (!empty($tracking_status) && !in_array($tracking_status, ["cancelled", "returned", "rejected", "courier_not_found"])) {
             return Biteship_Admin_Notice::action_notice("order_action", [
                 "name" => "create_shipment_failed",
                 "context" => ["id" => $order_id, "message" => "Order already has active shipment."],
@@ -471,6 +471,7 @@ class Biteship_Admin
                 return "status-processing";
             case "cancelled":
             case "rejected":
+            case "courier_not_found":
                 return "status-trash";
             case "delivered":
             case "returned":
@@ -513,6 +514,8 @@ class Biteship_Admin
                 return __("Returned", "biteship-shipping");
             case "return_in_transit":
                 return __("Return In Transit", "biteship-shipping");
+            case "courier_not_found":
+                return __("Courier Not Found", "biteship-shipping");
             default:
                 return __("Unknown", "biteship-shipping");
         }

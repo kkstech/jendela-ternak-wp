@@ -239,8 +239,10 @@ function jt_custom_account_menu_items( $items ) {
 // ─────────────────────────────────────────────────────────────────
 add_filter( 'woocommerce_pagination_args', 'jt_custom_pagination_args' );
 function jt_custom_pagination_args( $args ) {
-    $args['prev_text'] = '<span class="jt-arrow-icon-circle"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:block;"><line x1="12" y1="8" x2="4" y2="8"></line><polyline points="8 12 4 8 8 4"></polyline></svg></span> ' . esc_html__( 'Previous', 'jendela-ternak' );
-    $args['next_text'] = esc_html__( 'Next', 'jendela-ternak' ) . ' <span class="jt-arrow-icon-circle"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:block;"><line x1="4" y1="8" x2="12" y2="8"></line><polyline points="8 4 12 8 8 12"></polyline></svg></span>';
+    $args['prev_text'] = '<span class="jt-arrow-icon-circle"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:block;"><line x1="12" y1="8" x2="4" y2="8"></line><polyline points="8 12 4 8 8 4"></polyline></svg></span> ' . esc_html__( 'Sebelumnya', 'jendela-ternak' );
+    $args['next_text'] = esc_html__( 'Berikutnya', 'jendela-ternak' ) . ' <span class="jt-arrow-icon-circle"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:block;"><line x1="4" y1="8" x2="12" y2="8"></line><polyline points="8 4 12 8 8 12"></polyline></svg></span>';
+    $args['mid_size']  = 0;
+    $args['end_size']  = 1;
     return $args;
 }
 
@@ -353,4 +355,3 @@ add_filter( 'woocommerce_order_button_text', 'jt_custom_checkout_button_text' );
 function jt_custom_checkout_button_text( $button_text ) {
     return __( 'Pesan Sekarang', 'jendela-ternak' );
 }
-

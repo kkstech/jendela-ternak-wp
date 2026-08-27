@@ -4,7 +4,7 @@ Tags: shipping, WooCommerce, biteship, e-commerce
 Requires at least: 5.0
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 1.2.3
+Stable tag: 1.2.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 WC requires at least: 3.0
@@ -174,6 +174,8 @@ Informasi paket: [Halaman produk WooCommerce Biteship](https://biteship.com/id/p
 5. Dashboard Biteship
 
 == Changelog ==
+= 1.2.4 =
+* Fix courier_not_found sync status
 = 1.2.3 =
 * Make support and tutorial links clickable in plugin readme
 = 1.2.2 =

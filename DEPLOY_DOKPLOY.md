@@ -49,8 +49,6 @@ Buat app baru dengan tipe `Docker Compose`, lalu gunakan isi file `docker-compos
 Tambahkan environment variables berikut di Dokploy:
 
 ```env
-GHCR_IMAGE=ghcr.io/OWNER/jendelaternak-wp
-IMAGE_TAG=latest
 APP_PORT=80
 DB_HOST=mysql-host:3306
 DB_NAME=wordpress_db
@@ -60,6 +58,17 @@ WP_HOME=https://domain-anda.com
 WP_SITEURL=https://domain-anda.com
 WP_DEBUG=false
 ```
+
+Image sudah ditetapkan langsung di `docker-compose.dokploy.yml` sebagai:
+
+```text
+ghcr.io/kkstech/jendela-ternak-wp:latest
+```
+
+Jangan isi `GHCR_IMAGE` dengan URL repository GitHub. Jika field image pada
+service Dokploy masih berisi `https://github.com/kkstech/jendela-ternak-wp`,
+ubah menjadi image GHCR di atas atau gunakan service Docker Compose dengan
+Compose Path `./docker-compose.dokploy.yml`.
 
 ## 4. Catatan database
 

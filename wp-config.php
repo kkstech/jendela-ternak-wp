@@ -94,9 +94,10 @@ define(
 
 $http_host = $_SERVER['HTTP_HOST'] ?? 'localhost:8000';
 $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https://' : 'http://';
-define( 'WP_HOME', $_ENV['WP_HOME'] ?? getenv('WP_HOME') ?: $protocol . $http_host );
-define( 'WP_SITEURL', $_ENV['WP_SITEURL'] ?? getenv('WP_SITEURL') ?: $protocol . $http_host );
-
+$wp_home = $_ENV['WP_HOME'] ?? getenv( 'WP_HOME' ) ?: $protocol . $http_host;
+$wp_siteurl = $_ENV['WP_SITEURL'] ?? getenv( 'WP_SITEURL' ) ?: $protocol . $http_host;
+define( 'WP_HOME', $wp_home );
+define( 'WP_SITEURL', $wp_siteurl );
 
 
 /* That's all, stop editing! Happy publishing. */

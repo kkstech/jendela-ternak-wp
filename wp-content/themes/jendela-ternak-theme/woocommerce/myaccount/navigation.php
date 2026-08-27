@@ -37,6 +37,9 @@ do_action( 'woocommerce_before_account_navigation' );
                 case 'edit-account':
                     $icon_class = 'fa-solid fa-user-gear';
                     break;
+                case 'payment-methods':
+                    $icon_class = 'fa-solid fa-credit-card';
+                    break;
                 case 'customer-logout':
                     $icon_class = 'fa-solid fa-right-from-bracket';
                     break;
