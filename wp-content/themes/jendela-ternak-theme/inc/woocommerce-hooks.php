@@ -69,16 +69,14 @@ function jt_buy_now_button() {
 
 // ─────────────────────────────────────────────────────────────────
 // 4. BUY NOW REDIRECT FILTER
-//    Clears cart, adds product, redirects straight to checkout
+//    Keeps the cart contents and redirects straight to the cart
 // ─────────────────────────────────────────────────────────────────
 add_filter( 'woocommerce_add_to_cart_redirect', 'jt_buy_now_redirect', 99 );
 function jt_buy_now_redirect( $url ) {
     if ( ! isset( $_REQUEST['buy_now'] ) ) {
         return $url;
     }
-    // Empty the cart first so only this item goes to checkout
-    WC()->cart->empty_cart();
-    return wc_get_checkout_url();
+    return wc_get_cart_url();
 }
 
 // ─────────────────────────────────────────────────────────────────
