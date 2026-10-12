@@ -150,15 +150,20 @@ function jt_render_theme_settings_page() {
             }
         }
 
-        // Handle footer custom links JSON
+        // Handle editable footer links.
         $raw_footer_links = array();
-        if ( ! empty( $_POST['footer_links_json'] ) ) {
-            $decoded_links = json_decode( stripslashes( $_POST['footer_links_json'] ), true );
+        foreach ( array( 'footer_links_json', 'footer_help_links_json' ) as $footer_links_key ) {
+            $raw_footer_links[ $footer_links_key ] = array();
+            $decoded_links = json_decode( wp_unslash( $_POST[ $footer_links_key ] ?? '' ), true );
             if ( is_array( $decoded_links ) ) {
                 foreach ( $decoded_links as $link_item ) {
-                    $raw_footer_links[] = array(
+                    if ( ! is_array( $link_item ) ) {
+                        continue;
+                    }
+                    $raw_footer_links[ $footer_links_key ][] = array(
                         'label' => sanitize_text_field( $link_item['label'] ?? '' ),
                         'url'   => esc_url_raw( $link_item['url'] ?? '' ),
+                        'target' => ( $link_item['target'] ?? '' ) === '_blank' ? '_blank' : '_self',
                     );
                 }
             }
@@ -190,7 +195,9 @@ function jt_render_theme_settings_page() {
             // ── Tab 4: Footer ────────────────────────────
             'footer_description'     => sanitize_textarea_field( $_POST['footer_description'] ?? '' ),
             'footer_copyright'       => sanitize_text_field( $_POST['footer_copyright'] ?? '' ),
-            'footer_links_json'      => $raw_footer_links,
+            'footer_links_json'      => $raw_footer_links['footer_links_json'],
+            'footer_help_links_json' => $raw_footer_links['footer_help_links_json'],
+            'footer_menus_configured' => '1',
 
             // ── Tab 5: Beranda & Produk ──────────────────
             'section_title_bestseller'  => sanitize_text_field( $_POST['section_title_bestseller'] ?? '' ),
@@ -256,14 +263,29 @@ function jt_render_theme_settings_page() {
     $footer_description     = $settings['footer_description']     ?? 'Toko lengkap pakan ternak, obat hewan, dan alat peternakan terpercaya di Malang.';
     $footer_copyright       = $settings['footer_copyright']       ?? '';
     $footer_links_raw       = $settings['footer_links_json']      ?? array();
-    if ( empty( $footer_links_raw ) ) {
+    $footer_menus_configured = ! empty( $settings['footer_menus_configured'] );
+    if ( empty( $footer_links_raw ) && ! $footer_menus_configured ) {
         $footer_links_raw = array(
             array( 'label' => 'Tentang Kami', 'url' => '/tentang-kami/' ),
             array( 'label' => 'Blog', 'url' => '/blog/' ),
             array( 'label' => 'Kebijakan Privasi', 'url' => '/kebijakan-privasi/' ),
+            array( 'label' => 'Syarat & Ketentuan', 'url' => '/syarat-ketentuan/' ),
+            array( 'label' => 'Akun Saya', 'url' => wc_get_page_permalink( 'myaccount' ) ),
         );
     }
+    $footer_help_links_raw = $settings['footer_help_links_json'] ?? array(
+        array( 'label' => 'Cara Pemesanan', 'url' => '/cara-pemesanan/' ),
+        array( 'label' => 'Pengiriman', 'url' => '/pengiriman/' ),
+        array( 'label' => 'Pengembalian', 'url' => '/pengembalian/' ),
+        array( 'label' => 'FAQ', 'url' => '/faq/' ),
+        array(
+            'label' => 'Hubungi CS',
+            'url'   => 'https://wa.me/' . ( $settings['whatsapp_number'] ?? '6281234567890' ) . '?text=' . rawurlencode( $settings['whatsapp_message'] ?? 'Halo, saya ingin bertanya.' ),
+            'target' => '_blank',
+        ),
+    );
     $footer_links_json_escaped = esc_attr( json_encode( $footer_links_raw ) );
+    $footer_help_links_json_escaped = esc_attr( json_encode( $footer_help_links_raw ) );
 
     // Tab 5: Beranda & Produk
     $section_title_bestseller  = $settings['section_title_bestseller']  ?? 'Produk Terlaris';
@@ -615,32 +637,38 @@ function jt_render_theme_settings_page() {
                     </div>
                 </div>
 
-                <!-- Custom Footer Links (Kolom Informasi) -->
-                <div>
-                    <div class="border-b border-gray-100 pb-3 mb-5">
-                        <h2 class="text-base font-bold text-gray-800 flex items-center gap-2"><i class="fa-solid fa-link text-[#0B5E34]"></i> Link Kolom "Informasi" Footer</h2>
-                        <p class="text-xs text-gray-400 mt-1">Kustomisasi daftar link pada kolom informasi di footer. Maks 6 link.</p>
-                    </div>
-
-                    <input type="hidden" name="footer_links_json" id="jt-footer-links-json" value="<?php echo $footer_links_json_escaped; ?>">
-
-                    <div x-data="jtFooterLinks(<?php echo $footer_links_json_escaped; ?>)" x-init="syncJson()">
-                        <div class="space-y-3">
-                            <template x-for="(item, index) in links" :key="index">
-                                <div class="flex items-center gap-3 p-3 border border-gray-200 rounded-xl bg-gray-50/50">
-                                    <span class="text-xs font-bold text-gray-400 w-5 text-center" x-text="index + 1 + '.'"></span>
-                                    <input type="text" x-model="item.label" @input="syncJson()" placeholder="Label link" class="border border-gray-200 rounded-lg px-3 py-2 text-xs w-40 flex-shrink-0 focus:outline-none focus:ring-1 focus:ring-[#0B5E34]">
-                                    <input type="text" x-model="item.url" @input="syncJson()" placeholder="https://... atau /slug/" class="border border-gray-200 rounded-lg px-3 py-2 text-xs w-full focus:outline-none focus:ring-1 focus:ring-[#0B5E34]">
-                                    <button type="button" x-show="links.length > 1" @click="removeLink(index)" class="text-red-400 hover:text-red-600 text-xs font-bold px-2 py-1 rounded-lg hover:bg-red-50 transition-all flex-shrink-0"><i class="fa-solid fa-trash-can"></i></button>
-                                </div>
-                            </template>
+                <?php foreach ( array(
+                    array( 'key' => 'footer_links_json', 'id' => 'jt-footer-links-json', 'title' => 'Informasi', 'links' => $footer_links_json_escaped ),
+                    array( 'key' => 'footer_help_links_json', 'id' => 'jt-footer-help-links-json', 'title' => 'Bantuan', 'links' => $footer_help_links_json_escaped ),
+                ) as $footer_menu ) : ?>
+                    <div>
+                        <div class="border-b border-gray-100 pb-3 mb-5">
+                            <h2 class="text-base font-bold text-gray-800 flex items-center gap-2"><i class="fa-solid fa-link text-[#0B5E34]"></i> Link Kolom "<?php echo esc_html( $footer_menu['title'] ); ?>" Footer</h2>
+                            <p class="text-xs text-gray-400 mt-1">Atur label, tautan, dan urutannya. Hapus semua tautan untuk menyembunyikan kolom.</p>
                         </div>
-                        <button type="button" @click="addLink()" x-show="links.length < 6"
-                            class="mt-4 w-full py-3 border-2 border-dashed border-[#0B5E34]/30 text-[#0B5E34] hover:border-[#0B5E34] hover:bg-green-50 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-plus mr-1.5"></i> Tambah Link
-                        </button>
+
+                        <input type="hidden" name="<?php echo esc_attr( $footer_menu['key'] ); ?>" id="<?php echo esc_attr( $footer_menu['id'] ); ?>" value="<?php echo $footer_menu['links']; ?>">
+
+                        <div x-data="jtFooterLinks(<?php echo $footer_menu['links']; ?>, '<?php echo esc_js( $footer_menu['id'] ); ?>')" x-init="syncJson()">
+                            <div class="space-y-3">
+                                <template x-for="(item, index) in links" :key="index">
+                                    <div class="flex flex-wrap sm:flex-nowrap items-center gap-3 p-3 border border-gray-200 rounded-xl bg-gray-50/50">
+                                        <span class="text-xs font-bold text-gray-400 w-5 text-center" x-text="index + 1 + '.'"></span>
+                                        <input type="text" x-model="item.label" @input="syncJson()" :aria-label="'Label tautan ' + (index + 1)" placeholder="Label link" class="border border-gray-200 rounded-lg px-3 py-2 text-xs w-40 flex-shrink-0 focus:outline-none focus:ring-1 focus:ring-[#0B5E34]">
+                                        <input type="text" x-model="item.url" @input="syncJson()" :aria-label="'URL tautan ' + (index + 1)" placeholder="https://... atau /slug/" class="border border-gray-200 rounded-lg px-3 py-2 text-xs w-full min-w-0 focus:outline-none focus:ring-1 focus:ring-[#0B5E34]">
+                                        <button type="button" @click="moveLink(index, -1)" :disabled="index === 0" :aria-label="'Pindahkan ' + item.label + ' ke atas'" class="text-gray-500 hover:text-gray-900 text-xs px-2 py-1 rounded-lg disabled:opacity-30 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0B5E34]" title="Pindah ke atas"><i class="fa-solid fa-chevron-up"></i></button>
+                                        <button type="button" @click="moveLink(index, 1)" :disabled="index === links.length - 1" :aria-label="'Pindahkan ' + item.label + ' ke bawah'" class="text-gray-500 hover:text-gray-900 text-xs px-2 py-1 rounded-lg disabled:opacity-30 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0B5E34]" title="Pindah ke bawah"><i class="fa-solid fa-chevron-down"></i></button>
+                                        <button type="button" @click="removeLink(index)" :aria-label="'Hapus ' + item.label" class="text-red-500 hover:text-red-700 text-xs font-bold px-2 py-1 rounded-lg hover:bg-red-50 transition-all flex-shrink-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"><i class="fa-solid fa-trash-can"></i></button>
+                                    </div>
+                                </template>
+                            </div>
+                            <button type="button" @click="addLink()"
+                                class="mt-4 w-full py-3 border-2 border-dashed border-[#0B5E34]/30 text-[#0B5E34] hover:border-[#0B5E34] hover:bg-green-50 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0B5E34]">
+                                <i class="fa-solid fa-plus mr-1.5"></i> Tambah Link
+                            </button>
+                        </div>
                     </div>
-                </div>
+                <?php endforeach; ?>
             </div>
 
             <!-- ═══════════════════════════════════════════════════════
@@ -1090,24 +1118,26 @@ function jt_render_theme_settings_page() {
         }
 
         // ─── Alpine.js Footer Links Manager ───────────────────────────────────
-        function jtFooterLinks(initialLinks) {
+        function jtFooterLinks(initialLinks, inputId) {
             return {
                 links: JSON.parse(JSON.stringify(initialLinks)),
                 syncJson() {
-                    const hidden = document.getElementById('jt-footer-links-json');
+                    const hidden = document.getElementById(inputId);
                     if (hidden) hidden.value = JSON.stringify(this.links);
                 },
                 addLink() {
-                    if (this.links.length < 6) {
-                        this.links.push({ label: '', url: '' });
-                        this.syncJson();
-                    }
+                    this.links.push({ label: '', url: '' });
+                    this.syncJson();
                 },
                 removeLink(index) {
-                    if (this.links.length > 1) {
-                        this.links.splice(index, 1);
-                        this.syncJson();
-                    }
+                    this.links.splice(index, 1);
+                    this.syncJson();
+                },
+                moveLink(index, direction) {
+                    const target = index + direction;
+                    if (target < 0 || target >= this.links.length) return;
+                    this.links.splice(target, 0, this.links.splice(index, 1)[0]);
+                    this.syncJson();
                 }
             };
         }

@@ -16,16 +16,36 @@ $_footer_logo_height = (int) jt_get_setting( 'logo_height', 40 );
 $_footer_description = jt_get_setting( 'footer_description', 'Toko lengkap pakan ternak, obat hewan, dan alat peternakan terpercaya di Malang.' );
 $_footer_copyright   = jt_get_setting( 'footer_copyright', '' );
 $_footer_links       = jt_get_setting( 'footer_links_json', array() );
-// Fallback default links if none configured
-if ( empty( $_footer_links ) ) {
-    $_footer_links = array(
-        array( 'label' => __( 'Tentang Kami', 'jendela-ternak' ),     'url' => home_url( '/tentang-kami/' ) ),
-        array( 'label' => __( 'Blog', 'jendela-ternak' ),              'url' => home_url( '/blog/' ) ),
-        array( 'label' => __( 'Kebijakan Privasi', 'jendela-ternak' ), 'url' => home_url( '/kebijakan-privasi/' ) ),
-        array( 'label' => __( 'Syarat & Ketentuan', 'jendela-ternak' ),'url' => home_url( '/syarat-ketentuan/' ) ),
-        array( 'label' => __( 'Akun Saya', 'jendela-ternak' ),         'url' => wc_get_page_permalink( 'myaccount' ) ),
+$_footer_menus_configured = jt_get_setting( 'footer_menus_configured', false );
+$_footer_help_links = jt_get_setting( 'footer_help_links_json', array() );
+
+// Keep existing footer links until the new menu settings are saved once.
+if ( ! $_footer_menus_configured ) {
+    if ( empty( $_footer_links ) ) {
+        $_footer_links = array(
+            array( 'label' => __( 'Tentang Kami', 'jendela-ternak' ),      'url' => home_url( '/tentang-kami/' ) ),
+            array( 'label' => __( 'Blog', 'jendela-ternak' ),               'url' => home_url( '/blog/' ) ),
+            array( 'label' => __( 'Kebijakan Privasi', 'jendela-ternak' ), 'url' => home_url( '/kebijakan-privasi/' ) ),
+            array( 'label' => __( 'Syarat & Ketentuan', 'jendela-ternak' ), 'url' => home_url( '/syarat-ketentuan/' ) ),
+            array( 'label' => __( 'Akun Saya', 'jendela-ternak' ),          'url' => wc_get_page_permalink( 'myaccount' ) ),
+        );
+    }
+    $wa_url = 'https://wa.me/' . esc_attr( $wa_number ) . '?text=' . $wa_msg;
+    $_footer_help_links = array(
+        array( 'label' => __( 'Cara Pemesanan', 'jendela-ternak' ), 'url' => home_url( '/cara-pemesanan/' ) ),
+        array( 'label' => __( 'Pengiriman', 'jendela-ternak' ), 'url' => home_url( '/pengiriman/' ) ),
+        array( 'label' => __( 'Pengembalian', 'jendela-ternak' ), 'url' => home_url( '/pengembalian/' ) ),
+        array( 'label' => __( 'FAQ', 'jendela-ternak' ), 'url' => home_url( '/faq/' ) ),
+        array( 'label' => __( 'Hubungi CS', 'jendela-ternak' ), 'url' => $wa_url, 'target' => '_blank' ),
     );
 }
+
+$_footer_links = array_values( array_filter( is_array( $_footer_links ) ? $_footer_links : array(), static function ( $item ) {
+    return is_array( $item ) && ! empty( $item['label'] );
+} ) );
+$_footer_help_links = array_values( array_filter( is_array( $_footer_help_links ) ? $_footer_help_links : array(), static function ( $item ) {
+    return is_array( $item ) && ! empty( $item['label'] );
+} ) );
 ?>
 
 <footer class="jt-footer" role="contentinfo">
@@ -131,6 +151,7 @@ if ( empty( $_footer_links ) ) {
             </div>
 
             <!-- Info Column (dynamic from admin panel) -->
+            <?php if ( ! empty( $_footer_links ) ) : ?>
             <div class="jt-footer__col">
                 <h3 class="jt-footer__col-title"><?php esc_html_e( 'Informasi', 'jendela-ternak' ); ?></h3>
                 <ul>
@@ -138,7 +159,7 @@ if ( empty( $_footer_links ) ) {
                         if ( empty( $link_item['label'] ) ) continue;
                         $link_url = ! empty( $link_item['url'] ) ? $link_item['url'] : '#';
                         // Support both relative paths and full URLs
-                        if ( strpos( $link_url, 'http' ) !== 0 ) {
+                        if ( ! wp_parse_url( $link_url, PHP_URL_SCHEME ) && strpos( $link_url, '//' ) !== 0 ) {
                             $link_url = home_url( $link_url );
                         }
                     ?>
@@ -146,18 +167,25 @@ if ( empty( $_footer_links ) ) {
                     <?php endforeach; ?>
                 </ul>
             </div>
+            <?php endif; ?>
 
-            <!-- Bantuan Column -->
+            <!-- Bantuan Column (dynamic from admin panel) -->
+            <?php if ( ! empty( $_footer_help_links ) ) : ?>
             <div class="jt-footer__col">
                 <h3 class="jt-footer__col-title"><?php esc_html_e( 'Bantuan', 'jendela-ternak' ); ?></h3>
                 <ul>
-                    <li><a href="<?php echo esc_url( home_url( '/cara-pemesanan/' ) ); ?>"><?php esc_html_e( 'Cara Pemesanan', 'jendela-ternak' ); ?></a></li>
-                    <li><a href="<?php echo esc_url( home_url( '/pengiriman/' ) ); ?>"><?php esc_html_e( 'Pengiriman', 'jendela-ternak' ); ?></a></li>
-                    <li><a href="<?php echo esc_url( home_url( '/pengembalian/' ) ); ?>"><?php esc_html_e( 'Pengembalian', 'jendela-ternak' ); ?></a></li>
-                    <li><a href="<?php echo esc_url( home_url( '/faq/' ) ); ?>"><?php esc_html_e( 'FAQ', 'jendela-ternak' ); ?></a></li>
-                    <li><a href="<?php echo esc_url( $wa_url ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Hubungi CS', 'jendela-ternak' ); ?></a></li>
+                    <?php foreach ( $_footer_help_links as $link_item ) :
+                        $link_url = ! empty( $link_item['url'] ) ? $link_item['url'] : '#';
+                        if ( ! wp_parse_url( $link_url, PHP_URL_SCHEME ) && strpos( $link_url, '//' ) !== 0 ) {
+                            $link_url = home_url( $link_url );
+                        }
+                        $link_target = ( $link_item['target'] ?? '' ) === '_blank' ? '_blank' : '_self';
+                    ?>
+                        <li><a href="<?php echo esc_url( $link_url ); ?>" target="<?php echo esc_attr( $link_target ); ?>"<?php echo '_blank' === $link_target ? ' rel="noopener noreferrer"' : ''; ?>><?php echo esc_html( $link_item['label'] ); ?></a></li>
+                    <?php endforeach; ?>
                 </ul>
             </div>
+            <?php endif; ?>
 
         </div><!-- .jt-footer__grid -->
 
