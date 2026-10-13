@@ -89,34 +89,7 @@
     color: revert;
 }
 
-/* ==========================================================================
-   Fix 7: Elementor Container Width — Sesuaikan dengan lebar tema (1280px)
-   -------------------------------------------------------------------------
-   MASALAH SEBELUMNYA: Kode lama menghapus max-width dari .jt-main dan
-   .jt-container, yang menyebabkan konten Elementor mepet full-width.
-
-   SOLUSI: Biarkan .jt-main dan .jt-container tema berjalan normal.
-   Sebaliknya, batasi Elementor section/container agar mengikuti lebar tema.
-   ========================================================================== */
-
-/* Batasi lebar Elementor section (layout lama Elementor) */
-.elementor-section.elementor-section-boxed > .elementor-container {
-    max-width: var(--container-max, 1280px);
-}
-
-/* Batasi lebar Elementor Flexbox Container (layout baru Elementor 3.6+) */
-.e-con {
-    max-width: var(--container-max, 1280px) !important;
-}
-
-/* Pastikan inner container juga mengikuti */
-.e-con-inner {
-    max-width: 100%;
-}
-
-/* Jangan hapus max-width dari container tema — biarkan berjalan normal */
-/* .jt-elementor-page .jt-main, */
-/* .jt-elementor-page .jt-container { max-width: none; } — DIHAPUS */
+/* Biarkan Elementor mengatur lebar section dan container sesuai pengaturan halaman. */
 
 /* ==========================================================================
    Fix 8: Alpine.js x-cloak conflict
