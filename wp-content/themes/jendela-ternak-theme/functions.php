@@ -9,7 +9,7 @@
 defined( 'ABSPATH' ) || exit;
 
 // Define theme constants
-define( 'JT_THEME_VERSION', '1.0.0' );
+define( 'JT_THEME_VERSION', '1.0.2' );
 define( 'JT_THEME_DIR', get_template_directory() );
 define( 'JT_THEME_URI', get_template_directory_uri() );
 
